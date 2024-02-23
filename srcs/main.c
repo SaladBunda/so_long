@@ -14,8 +14,12 @@ int main(int ac, char **av)
 		if(ext_test(av[1])==1)
 		{
 			printf("its a map\n");
-			if(map_tests(av[1],&map.x,&map.y)==1)
+			if(map_tests(av[1],&map)==1)
 			{
+				int i = 0;
+				while(map.lines[i])
+					printf("%s\n",map.lines[i++]);
+				main_game(map);
 				printf("good map\n");
 				printf("width:%d\nheight:%d\n",map.x,map.y);
 			}

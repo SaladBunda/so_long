@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/22 22:27:11 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/22 22:52:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,50 @@ int checking_filled_map(char *map[],int width,int height)
 	return 1;
 }
 
-int parsing_test(char *map[], int width, int height)
+
+char **clone_map(char *map[], int width,int height)
+{
+	char **arr=malloc((height +1)*sizeof(char *));
+	if (!arr)
+		return NULL;
+	int i =0;
+	while(i<height)
+		arr[i++]=malloc((width+1)*sizeof(char));
+	arr[i]=NULL;
+	i=0;
+	int j;
+	while(i<height)
+	{
+		j=0;
+		while(j<width)
+		{
+			arr[i][j]=map[i][j];
+			j++;
+		}
+		arr[i][j]='\0';
+		i++;
+	}
+	return arr;
+}
+
+int parsing_test(char **map, int width, int height)
 {
 	int x;
 	int y;
+	int i =0;
 	start_position(map,&x,&y);
-	flood_fill(map,y,x,height,width);
-	int i=0;
-	while(map[i])
-		printf("%s\n",map[i++]);
-	if(checking_filled_map(map,width,height)==1)
+	char **map_cpy =clone_map(map,width,height);
+	flood_fill(map_cpy,y,x,height,width);
+	i=0;
+	if(checking_filled_map(map_cpy,width,height)==1)
+	{
+		while(i<height)
+			free(map_cpy[i++]);
+		free(map_cpy);
 		return 1;
+	}
+	while(i<height)
+		free(map_cpy[i++]);
+	free(map_cpy);
 	return 0;
 }

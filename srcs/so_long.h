@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/22 22:18:20 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:35:32 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <mlx.h>
 
 typedef struct s_map
 {	
-	char **maps;
+	char **lines;
 	int y ;
 	int x;
 }t_map;
@@ -43,5 +44,7 @@ char *get_path(char *filename);
 int parsing_test(char *map[], int width, int height);
 void start_position(char *map[],int *x, int *y);
 int ext_test(char *filename);
-int map_tests(char *filename, int *width, int *height);
+int map_tests(char *filename, t_map *map);
+void main_game(t_map map);
+
 #endif

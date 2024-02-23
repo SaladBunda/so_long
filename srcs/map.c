@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/22 22:40:55 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/22 22:53:14 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int fill_pixels(char *map[],int width,int height)
 }
 
 
-int map_tests(char *filename, int *width, int *height)
+int map_tests(char *filename, t_map *map)
 {
 	int count ;
 	int count_fd = open(get_path(filename), O_RDONLY);
@@ -125,22 +125,23 @@ int map_tests(char *filename, int *width, int *height)
 	if (count <= 2)
 		return 0;
 	int lines_fd = open(get_path(filename), O_RDONLY);
-	char *lines[count + 1];
+	map->lines=malloc((count +1)*sizeof(char *));
+	if (!map->lines)
+		return 0;
 	int i=0;
 	while(i < count)
-		lines[i++]=get_next_line(lines_fd);
-	lines[i]=NULL;
-	if(test_lines(lines)!=0)
-	{
-		(*height)=count;
-		(*width)=ft_strlen(lines[0]);
-		if(fill_pixels(lines, *width,*height)!=1)
+		map->lines[i++]=get_next_line(lines_fd);
+	map->lines[i]=NULL;
+	if(test_lines(map->lines)!=1)
+		return 0;
+	map->y=count;
+	map->x=ft_strlen(map->lines[0]);
+	if(fill_pixels(map->lines, map->x,map->y)!=1)
 			return 0;
-		if(test_borders(lines,*width,*height)!=1)
+	if(test_borders(map->lines,map->x,map->y)!=1)
 			return 0;
-		if(parsing_test(lines,*width, *height))
+	if(parsing_test(map->lines,map->x, map->y))
 			return(1);
-	}
 	return 0;
 }
 

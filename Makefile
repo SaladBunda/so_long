@@ -1,16 +1,17 @@
-SRCS= map.c util_fs.c util_functions.c get_next_line.c map_parsing.c
-OBJS=$(SRCS:.c=.o)
+SRCS= map.c util_fs.c util_functions.c get_next_line.c map_parsing.c main.c main_game.c
+DIR=./srcs/
+OBJS=$(patsubst %.c,$(DIR)%.o,$(SRCS)) 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I.
-# IFLAGS = -lmlx -framework OpenGL -framework AppKit
-NAME = a.out
+IFLAGS = -lmlx -framework OpenGL -framework AppKit
+NAME = so_long
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $^ -o $(NAME)
+	$(CC) $(IFLAGS) $^ -o $(NAME) 
 
-%.o.: %.c so_long.h
+%.o: %.c so_long.h
 	$(CC) $(SRCS) -c
 
 clean:
