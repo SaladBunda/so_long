@@ -6,26 +6,30 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/22 22:52:12 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:27:55 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void start_position(char *map[],int *x, int *y)
+void start_position(t_map *map)
 {
 	int i =1;
 	int j;
-	while(map[i+1])
+	while(map->lines[i+1])
 	{
 		j=1;
-		while(map[i][j+1])
+		while(map->lines[i][j+1])
 		{
-			if(map[i][j]=='P')
+			if(map->lines[i][j]=='P')
 			{
-				*x = j;
-				*y = i;
-				return ;
+				map->pos_x = j;
+				map->pos_y = i;
+			}
+			else if(map->lines[i][j]=='E')
+			{
+				map->exit_x=j;
+				map->exit_y=i;
 			}
 			j++;
 		}
@@ -93,23 +97,22 @@ char **clone_map(char *map[], int width,int height)
 	return arr;
 }
 
-int parsing_test(char **map, int width, int height)
+int parsing_test(t_map *map)
 {
-	int x;
-	int y;
 	int i =0;
-	start_position(map,&x,&y);
-	char **map_cpy =clone_map(map,width,height);
-	flood_fill(map_cpy,y,x,height,width);
+	start_position(map);
+	char **map_cpy =clone_map(map->lines,map->x,map->y);
+	flood_fill(map_cpy,map->pos_y,map->pos_x,map->y,map->x);
+	// ft_putchar('1');
 	i=0;
-	if(checking_filled_map(map_cpy,width,height)==1)
+	if(checking_filled_map(map_cpy,map->x,map->y)==1)
 	{
-		while(i<height)
+		while(i<map->y)
 			free(map_cpy[i++]);
 		free(map_cpy);
 		return 1;
 	}
-	while(i<height)
+	while(i<map->y)
 		free(map_cpy[i++]);
 	free(map_cpy);
 	return 0;

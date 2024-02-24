@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 15:42:52 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/19 15:51:37 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:26:19 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include <math.h>
 #include <stdlib.h>
 
-typedef struct img_data
+typedef struct s_img
 {
 	void *img;
 	char *addr;
 	int bits_per_pixel;
 	int line_length;
 	int endian;
-} imgdata;
+} t_img;
 
 typedef struct mlx_data
 {

@@ -56,7 +56,7 @@ int f(int key, t_game *param)
 		x+=10;
 	else if(key == ESC_KEY)
 	{
-		mlx_destroy_window(param->)
+		mlx_destroy_window(param->mlx,param->win);
 	}
 	
 	mlx_pixel_put(param->mlx,param->win,x,y,color);
@@ -66,12 +66,73 @@ int f(int key, t_game *param)
 	return 0;
 }
 
+void my_put_ps(t_img *data, int x, int y,int color)
+{
+	char *dst;
+
+	dst=data->addr + (y*data->line_length + x *(data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+void make_image(t_img *data, int x, int y,int color)
+{
+	int i=0;
+	int j=0;
+	while(i < x)
+	{
+		j=0;
+		while(j<y)
+		{
+			my_put_ps(data,i,j,color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void draw_map(t_game game,t_map map)
+{
+	t_img wall;
+	t_img floor;
+	(void) map;
+	wall.img=mlx_new_image(game.mlx,100,100);
+	wall.addr=mlx_get_data_addr(wall.img,&wall.bits_per_pixel, &wall.line_length, &wall.endian);
+	floor.img=mlx_new_image(game.mlx,100,100);
+	floor.addr=mlx_get_data_addr(floor.img,&floor.bits_per_pixel, &floor.line_length, &floor.endian);
+
+	int i=0;
+	int j;
+	make_image(&wall,100,100,0x000060);
+	make_image(&floor,100,100,0x00FF00);
+	while(map.lines[i])
+	{
+		j=0;
+		while(map.lines[i][j])
+		{
+			if(map.lines[i][j] == '1')
+				mlx_put_image_to_window(game.mlx,game.win,wall.img,j*100,i*100);
+			else
+				mlx_put_image_to_window(game.mlx,game.win,floor.img,j*100,i*100);
+			j++;	
+
+			mlx_pixel_put(game.mlx,game.win,j*100,i*100,0xFF0000);
+		}
+		i++;
+	}
+	// mlx_put_image_to_window(game.mlx,game.win,wall.img,x,y);
+	// mlx_put_image_to_window(game.mlx,game.win,floor.img,x+100,y+100);
+
+}
+
 void main_game(t_map map)
 {
 	t_game game;
     game.mlx=mlx_init() ;
 	game.win=mlx_new_window(game.mlx,map.x * 100,map.y * 100,"bunda");
-	mlx_key_hook(game.win, f, &game);
+
+	// mlx_key_hook(game.win, f, &game);
+	draw_map(game,map);
+	
 	// ft_put_u(i);
 	mlx_loop(game.mlx);
 
