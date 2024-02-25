@@ -46,6 +46,13 @@ typedef struct s_img
 	int endian;
 } t_img;
 
+typedef struct s_player
+{
+	int x;
+	int y;
+	int c_col;
+} t_player;
+
 int ft_strlen(char *str);
 void ft_strncat(char *dst, char *src, int size);
 char	*get_next_line(int fd);

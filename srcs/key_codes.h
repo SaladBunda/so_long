@@ -19,4 +19,10 @@
 # define DOWN_KEY 1
 # define ESC_KEY 53
 
+# define L_UP_KEY 119
+# define L_LEFT_KEY 97
+# define L_RIGHT_KEY 100
+# define L_DOWN_KEY 115
+# define L_ESC_KEY 65307
+
 #endif
