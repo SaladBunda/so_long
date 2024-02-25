@@ -6,15 +6,17 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/24 21:25:18 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/25 19:52:06 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int ext_test(char *filename)
+int	ext_test(char *filename)
 {
-	int i=0;
+	int	i;
+	
+	i = 0;
 	while(filename[i])
 		i++;
 	i--;
@@ -32,7 +34,7 @@ int ext_test(char *filename)
 			}
 		}
 	}
-	return 0;
+	return (0);
 }
 
 int test_lines(char *lines[])

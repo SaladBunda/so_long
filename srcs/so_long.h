@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/24 21:21:16 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/25 17:45:07 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ typedef struct s_map
 	int pos_y;
 }t_map;
 
-typedef struct s_game
-{
-	void *mlx;
-	void *win;
-}t_game;
 
 typedef struct s_img
 {
@@ -44,6 +39,8 @@ typedef struct s_img
 	int bits_per_pixel;
 	int line_length;
 	int endian;
+	int width;
+	int height;
 } t_img;
 
 typedef struct s_player
@@ -52,6 +49,14 @@ typedef struct s_player
 	int y;
 	int c_col;
 } t_player;
+
+typedef struct s_game
+{
+	void *mlx;
+	void *win;
+	t_map map;
+	t_player p;
+}t_game;
 
 int ft_strlen(char *str);
 void ft_strncat(char *dst, char *src, int size);
