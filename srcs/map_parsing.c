@@ -6,30 +6,32 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/24 21:27:55 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:46:35 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void start_position(t_map *map)
+void	start_position(t_map *map)
 {
-	int i =1;
-	int j;
-	while(map->lines[i+1])
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map->lines[i + 1])
 	{
-		j=1;
-		while(map->lines[i][j+1])
+		j = 1;
+		while (map->lines[i][j + 1])
 		{
-			if(map->lines[i][j]=='P')
+			if (map->lines[i][j] == 'P')
 			{
 				map->pos_x = j;
 				map->pos_y = i;
 			}
-			else if(map->lines[i][j]=='E')
+			else if (map->lines[i][j] == 'E')
 			{
-				map->exit_x=j;
-				map->exit_y=i;
+				map->exit_x = j;
+				map->exit_y = i;
 			}
 			j++;
 		}
@@ -37,83 +39,83 @@ void start_position(t_map *map)
 	}
 }
 
-void flood_fill(char *grid[], int start_x, int start_y, int height, int width)
+void	flood_fill(char *grid[], int x, int y, t_map map)
 {
-    if (start_x < 0 || start_x >= height || start_y < 0 || start_y >= width)
-        return;
-    
-    if (grid[start_x][start_y] == '1')
-        return;
-    
-    grid[start_x][start_y] = '1';
-
-    flood_fill(grid, start_x + 1, start_y, height, width); // Down
-    flood_fill(grid, start_x - 1, start_y, height, width); // Up
-    flood_fill(grid, start_x, start_y + 1, height, width); // Right
-    flood_fill(grid, start_x, start_y - 1, height, width); // Left
+	if (x < 0 || x >= map.y || y < 0 || y >= map.x)
+		return ;
+	if (grid[x][y] == '1')
+		return ;
+	grid[x][y] = '1';
+	flood_fill(grid, x + 1, y, map);
+	flood_fill(grid, x - 1, y, map);
+	flood_fill(grid, x, y + 1, map);
+	flood_fill(grid, x, y - 1, map);
 }
 
-int checking_filled_map(char *map[],int width,int height)
+int	checking_filled_map(char *map[], int width, int height)
 {
-	int i=0;
-	int j;
-	while(i<height)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < height)
 	{
-		j=0;
-		while(j<width)
+		j = 0;
+		while (j < width)
 		{
-			if(map[i][j]!='0'&& map[i][j]!='1')
-				return 0;
+			if (map[i][j] != '0' && map[i][j] != '1')
+				return (0);
 			j++;
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
-
-char **clone_map(char *map[], int width,int height)
+char	**clone_map(char *map[], t_map mapp)
 {
-	char **arr=malloc((height +1)*sizeof(char *));
+	char	**arr;
+	int		i;
+	int		j;
+
+	i = 0;
+	arr = malloc((mapp.y + 1) * sizeof(char *));
 	if (!arr)
-		return NULL;
-	int i =0;
-	while(i<height)
-		arr[i++]=malloc((width+1)*sizeof(char));
-	arr[i]=NULL;
-	i=0;
-	int j;
-	while(i<height)
+		return (NULL);
+	while (i < mapp.y)
+		arr[i++] = malloc((mapp.x + 1) * sizeof(char));
+	arr[i] = NULL;
+	i = 0;
+	while (i < mapp.y)
 	{
-		j=0;
-		while(j<width)
-		{
-			arr[i][j]=map[i][j];
-			j++;
-		}
-		arr[i][j]='\0';
+		j = -1;
+		while (++j < mapp.x)
+			arr[i][j] = map[i][j];
+		arr[i][j] = '\0';
 		i++;
 	}
-	return arr;
+	return (arr);
 }
 
-int parsing_test(t_map *map)
+int	parsing_test(t_map *map)
 {
-	int i =0;
+	int		i;
+	char	**map_cpy;
+
+	i = 0;
 	start_position(map);
-	char **map_cpy =clone_map(map->lines,map->x,map->y);
-	flood_fill(map_cpy,map->pos_y,map->pos_x,map->y,map->x);
-	// ft_putchar('1');
-	i=0;
-	if(checking_filled_map(map_cpy,map->x,map->y)==1)
+	map_cpy = clone_map(map->lines,*map);
+	flood_fill(map_cpy, map->pos_y, map->pos_x, *map);
+	i = 0;
+	if (checking_filled_map(map_cpy, map->x, map->y) == 1)
 	{
-		while(i<map->y)
+		while (i < map->y)
 			free(map_cpy[i++]);
 		free(map_cpy);
-		return 1;
+		return (1);
 	}
-	while(i<map->y)
+	while (i < map->y)
 		free(map_cpy[i++]);
 	free(map_cpy);
-	return 0;
+	return (0);
 }
