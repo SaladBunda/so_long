@@ -6,37 +6,35 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:13:24 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/19 22:25:42 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:51:34 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
+
 	if (!str)
-		return 0;
+		return (0);
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
-	return i;
+	return (i);
 }
 
-void ft_strncat(char *dst, char *src, int size)
+void	ft_strncat(char *dst, char *src, int size)
 {
-	int i;
-	int j;
-	j=0;
-	i = ft_strlen(dst);
-	while(j < size)
-	{
-		dst[i++] = src[j++];
-		
-	}
-	dst[i]='\0';
-}
+	int	i;
+	int	j;
 
+	j = 0;
+	i = ft_strlen(dst);
+	while (j < size)
+		dst[i++] = src[j++];
+	dst[i] = '\0';
+}
 
 void	*ft_memfunc(void *b, void *s, int c, size_t len)
 {
@@ -109,18 +107,4 @@ char	*ft_strjoin(char *s1, char *s2)
 		p[i++] = s2[j++];
 	p[length] = '\0';
 	return (p);
-}
-
-int	ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
 }

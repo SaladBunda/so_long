@@ -6,42 +6,17 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/26 22:55:41 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:34:21 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ext_test(char *filename)
-{
-	int	i;
-
-	i = 0;
-	while (filename[i])
-		i++;
-	i--;
-	if (filename[i] == 'r')
-	{
-		i--;
-		if (filename[i] == 'e')
-		{
-			i--;
-			if (filename[i] == 'b')
-			{
-				i--;
-				if (filename[i] == '.')
-					return (1);
-			}
-		}
-	}
-	return (0);
-}
-
 int	test_lines(char *lines[])
 {
 	int	i;
 	int	line_len;
-	
+
 	i = 0;
 	line_len = ft_strlen(lines[i]);
 	while (lines[i])
@@ -96,17 +71,15 @@ int	test_pixels(int array[], int width, int height)
 	return (1);
 }
 
-int	fill_pixels(t_map *map)
+int	fill_pixels(t_map *map, int i, int j)
 {
-	int	i;
-	int	j;
 	int	arr[5];
 
-	i = -1;
-	arr[]={0,0,0,0,0};
+	while (++j < 5)
+		arr[j] = 0;
 	while (map->lines[++i])
 	{
-		j=-1;
+		j = -1;
 		while (map->lines[i][++j])
 		{
 			if (map->lines[i][j] == '0')
@@ -126,32 +99,30 @@ int	fill_pixels(t_map *map)
 	return (map->coins = arr[2], test_pixels(arr, map->x, map->y));
 }
 
-
-int map_tests(char *filename, t_map *map)
+int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 {
-	int count ;
-	int count_fd = open(get_path(filename), O_RDONLY);
-	count = count_lines(count_fd);
-	if (count <= 2)
-		return 0;
-	int lines_fd = open(get_path(filename), O_RDONLY);
-	map->lines=malloc((count +1)*sizeof(char *));
-	if (!map->lines)
-		return 0;
-	int i=0;
-	while(i < count)
-		map->lines[i++]=get_next_line(lines_fd);
-	map->lines[i]=NULL;
-	if(test_lines(map->lines)!=1)
-		return 0;
-	map->y=count;
-	map->x=ft_strlen(map->lines[0]);
-	if(fill_pixels(map)!=1)
-			return 0;
-	if(test_borders(map->lines,map->x,map->y)!=1)
-			return 0;
-	if(parsing_test(map))
-			return(1);
-	return 0;
-}
+	int	count;
+	int	i;
 
+	i = 0;
+	count_fd = open(get_path(filename), O_RDONLY);
+	count = count_lines(count_fd);
+	lines_fd = open(get_path(filename), O_RDONLY);
+	map->lines = malloc((count + 1) * sizeof(char *));
+	if (!map->lines)
+		return (0);
+	while (i < count)
+		map->lines[i++] = get_next_line(lines_fd);
+	map->lines[i] = NULL;
+	if (test_lines(map->lines) != 1)
+		return (0);
+	map->y = count;
+	map->x = ft_strlen(map->lines[0]);
+	if (fill_pixels(map, -1, -1) != 1)
+		return (0);
+	if (test_borders(map->lines, map->x, map->y) != 1)
+		return (0);
+	if (parsing_test(map))
+		return (1);
+	return (0);
+}

@@ -13,79 +13,61 @@
 #include "so_long.h"
 #include "key_codes.h"
 
-void ft_putchar(int c)
+void	load_textures(t_txts *x, t_game g)
 {
-	write(1,&c,1);
+	x->w.img = mlx_xpm_file_to_image(g.mlx, "./textures/W.xpm", 
+			&x->w.wth, &x->w.hht);
+	x->w.addr = mlx_get_data_addr(x->w.img, &x->w.bpp, &x->w.ll, &x->w.en);
+	x->f.img = mlx_xpm_file_to_image(g.mlx, "./textures/f.xpm",
+			&x->f.wth, &x->f.hht);
+	x->f.addr = mlx_get_data_addr(x->f.img, &x->f.bpp, &x->f.ll, &x->f.en);
+	x->p.img = mlx_xpm_file_to_image(g.mlx, "./textures/p.xpm",
+			&x->p.wth, &x->p.hht);
+	x->p.addr = mlx_get_data_addr(x->p.img, &x->p.bpp, &x->p.ll, &x->p.en);
+	x->c.img = mlx_xpm_file_to_image(g.mlx, "./textures/c.xpm",
+			&x->c.wth, &x->c.hht);
+	x->c.addr = mlx_get_data_addr(x->c.img, &x->c.bpp, &x->c.ll, &x->c.en);
+	x->e_c.img = mlx_xpm_file_to_image(g.mlx, "./textures/ec.xpm",
+			&x->e_c.wth, &x->e_c.hht);
+	x->e_c.addr = mlx_get_data_addr(x->e_c.img, &x->e_c.bpp,
+			&x->e_c.ll, &x->e_c.en);
+	x->e_o.img = mlx_xpm_file_to_image(g.mlx, "./textures/eo.xpm",
+			&x->e_o.wth, &x->e_o.hht);
+	x->e_o.addr = mlx_get_data_addr(x->e_o.img, &x->e_o.bpp,
+			&x->e_o.ll, &x->e_o.en);
 }
 
-static void	recurs(long n, int *index)
+void	draw_map(t_game g, t_map map, int i, int j)
 {
-	(*index)++;
-	if (n < 10)
-		ft_putchar(n + '0');
-	else
+	t_txts	img;
+
+	load_textures(&img, g);
+	while (map.lines[++i])
 	{
-		recurs(n / 10, index);
-		ft_putchar((n % 10) + '0');
-	}
-}
-
-int	ft_put_u(unsigned int n)
-{
-	int	i;
-
-	i = 0;
-	recurs(n, &i);
-	return (i);
-}
-
-void load_textures(t_txts *xmp,t_game game)
-{
-	xmp->wall.img = mlx_xpm_file_to_image(game.mlx,"./textures/Wall.xpm",&xmp->wall.width,&xmp->wall.height);
-	xmp->wall.addr=mlx_get_data_addr(xmp->wall.img,&xmp->wall.bits_per_pixel, &xmp->wall.line_length, &xmp->wall.endian);
-	xmp->floor.img = mlx_xpm_file_to_image(game.mlx,"./textures/floor.xpm",&xmp->floor.width,&xmp->floor.height);
-	xmp->floor.addr=mlx_get_data_addr(xmp->floor.img,&xmp->floor.bits_per_pixel, &xmp->floor.line_length, &xmp->floor.endian);
-	xmp->plyr.img=mlx_xpm_file_to_image(game.mlx,"./textures/player.xpm",&xmp->plyr.width,&xmp->plyr.height);
-	xmp->plyr.addr=mlx_get_data_addr(xmp->plyr.img, &xmp->plyr.bits_per_pixel,&xmp->plyr.line_length,&xmp->plyr.endian);
-	xmp->coins.img=mlx_xpm_file_to_image(game.mlx,"./textures/coin.xpm",&xmp->coins.width,&xmp->coins.height);
-	xmp->coins.addr=mlx_get_data_addr(xmp->coins.img, &xmp->coins.bits_per_pixel,&xmp->coins.line_length,&xmp->coins.endian);
-	xmp->exit_c.img=mlx_xpm_file_to_image(game.mlx,"./textures/exit_c.xpm",&xmp->exit_c.width,&xmp->exit_c.height);
-	xmp->exit_c.addr=mlx_get_data_addr(xmp->exit_c.img, &xmp->exit_c.bits_per_pixel,&xmp->exit_c.line_length,&xmp->exit_c.endian);
-	xmp->exit_o.img=mlx_xpm_file_to_image(game.mlx,"./textures/exit_o.xpm",&xmp->exit_o.width,&xmp->exit_o.height);
-	xmp->exit_o.addr=mlx_get_data_addr(xmp->exit_o.img, &xmp->exit_o.bits_per_pixel,&xmp->exit_o.line_length,&xmp->exit_o.endian);
-}
-
-void draw_map(t_game game,t_map map)
-{
-	t_txts img;
-	load_textures(&img,game);
-	int i=0;
-	int j;
-	while(map.lines[i])
-	{
-		j=0;
-		while(map.lines[i][j])
+		j = -1;
+		while (map.lines[i][++j])
 		{
-			if(map.lines[i][j] == '1')
-				mlx_put_image_to_window(game.mlx,game.win,img.wall.img,j*64,i*64);
-			else if(map.lines[i][j] == 'C')
+			if (map.lines[i][j] == '1')
+				mlx_put_image_to_window(g.mlx, g.win, 
+					img.w.img, j * 64, i * 64);
+			else if (map.lines[i][j] == 'C')
 			{
-				mlx_put_image_to_window(game.mlx,game.win,img.floor.img,j*64,i*64);
-				mlx_put_image_to_window(game.mlx,game.win,img.coins.img,j*64,i*64);
+				mlx_put_image_to_window(g.mlx, g.win,
+					img.f.img, j * 64, i * 64);
+				mlx_put_image_to_window(g.mlx, g.win,
+					img.c.img, j * 64, i * 64);
 			}
 			else
-				mlx_put_image_to_window(game.mlx,game.win,img.floor.img,j*64,i*64);
-			j++;	
+				mlx_put_image_to_window(g.mlx, g.win,
+					img.f.img, j * 64, i * 64);
 		}
-		i++;
 	}
-	mlx_put_image_to_window(game.mlx,game.win,img.plyr.img,game.p.x,game.p.y);
-	if(game.p.c_col==game.map.coins)
-		mlx_put_image_to_window(game.mlx,game.win,img.exit_o.img,map.exit_x*64,map.exit_y*64);
+	mlx_put_image_to_window(g.mlx, g.win, img.p.img, g.p.x, g.p.y);
+	if (g.p.c_col == g.map.coins)
+		mlx_put_image_to_window(g.mlx, g.win, img.e_o.img, map.exit_x * 64, map.exit_y * 64);
 	else
-		mlx_put_image_to_window(game.mlx,game.win,img.exit_c.img,map.exit_x*64,map.exit_y*64);
+		mlx_put_image_to_window(g.mlx, g.win, img.e_c.img, map.exit_x * 64, map.exit_y * 64);
 }
-
 
 int f(int key, t_game *param)
 {
@@ -107,34 +89,31 @@ int f(int key, t_game *param)
 		param->p.c_col++;
 		param->map.lines[param->p.y/64][param->p.x/64]='0';
 	}
-	draw_map(*param,param->map);
-	ft_put_u(param->map.exit_x);
-	ft_put_u(param->map.exit_y);
-	return 0;
+	draw_map(*param, param->map, -1, -1);
+	return (0);
 }
 
-
-int quit(t_game *param)
+int	quit(t_game *param)
 {
-	mlx_destroy_window(param->mlx,param->win);
+	mlx_destroy_window(param->mlx, param->win);
 	exit(1);
 }
 
-void main_game(t_map map)
+void	main_game(t_map map)
 {
-	t_game game;
-	int i =0;
-	game.map=map;
-	game.p.x=map.pos_x*64;
-	game.p.y=map.pos_y*64;
-	game.p.c_col=0;
-    game.mlx=mlx_init() ;
-	game.win=mlx_new_window(game.mlx,map.x * 64,map.y * 64,"bunda");
+	t_game	game;
+	int		i;
+
+	i = 0;
+	game.map = map;
+	game.p.x = map.pos_x * 64;
+	game.p.y = map.pos_y * 64;
+	game.p.c_col = 0;
+	game.mlx = mlx_init();
+	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	mlx_key_hook(game.win, f, &game);
-	if(i++ == 0)
-		draw_map(game,map);
+	if (i++ == 0)
+		draw_map(game, map, (-1), (-1));
 	mlx_hook(game.win, 17, 0, quit, &game);
 	mlx_loop(game.mlx);
 }
-
-
