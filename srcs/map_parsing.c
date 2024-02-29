@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/26 22:46:35 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:54:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	start_position(t_map *map)
 	int	j;
 
 	i = 0;
-	while (map->lines[i + 1])
+	while (map->ln[i + 1])
 	{
 		j = 1;
-		while (map->lines[i][j + 1])
+		while (map->ln[i][j + 1])
 		{
-			if (map->lines[i][j] == 'P')
+			if (map->ln[i][j] == 'P')
 			{
 				map->pos_x = j;
 				map->pos_y = i;
 			}
-			else if (map->lines[i][j] == 'E')
+			else if (map->ln[i][j] == 'E')
 			{
 				map->exit_x = j;
 				map->exit_y = i;
@@ -104,7 +104,7 @@ int	parsing_test(t_map *map)
 
 	i = 0;
 	start_position(map);
-	map_cpy = clone_map(map->lines,*map);
+	map_cpy = clone_map(map->ln,*map);
 	flood_fill(map_cpy, map->pos_y, map->pos_x, *map);
 	i = 0;
 	if (checking_filled_map(map_cpy, map->x, map->y) == 1)

@@ -1,4 +1,4 @@
-SRCS= map.c util_fs.c util_functions.c get_next_line.c map_parsing.c main.c main_game.c
+SRCS= map.c util_fs.c util_functions.c get_next_line.c map_parsing.c main.c main_game.c extra_f.c
 DIR=./srcs/
 OBJS=$(patsubst %.c,$(DIR)%.o,$(SRCS)) 
 CC = gcc

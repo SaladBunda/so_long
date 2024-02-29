@@ -39,19 +39,43 @@ void	load_textures(t_txts *x, t_game g)
 			&x->e_o.ll, &x->e_o.en);
 }
 
+void somethng(t_game *p, int par)
+{
+	if(par == 0)
+	{
+		p->p.y -= 64;
+		p->mv++;
+	}	
+	else if(par ==1)
+	{
+		p->p.y += 64;
+		p->mv++;
+	}
+	else if(par ==2)
+	{
+		p->p.x -= 64;
+		p->mv++;
+	}
+	else if(par ==3)
+	{
+		p->p.x += 64;
+		p->mv++;
+	}
+}
+
 void	draw_map(t_game g, t_map map, int i, int j)
 {
 	t_txts	img;
 
 	load_textures(&img, g);
-	while (map.lines[++i])
+	while (map.ln[++i])
 	{
 		j = -1;
-		while (map.lines[i][++j])
+		while (map.ln[i][++j])
 		{
-			if (map.lines[i][j] == '1')
+			if (map.ln[i][j] == '1')
 				MLX_PUT(g.mlx, g.win, img.w.img, j * 64, i * 64);
-			else if (map.lines[i][j] == 'C')
+			else if (map.ln[i][j] == 'C')
 			{
 				MLX_PUT(g.mlx, g.win, img.f.img, j * 64, i * 64);
 				MLX_PUT(g.mlx, g.win, img.c.img, j * 64, i * 64);
@@ -60,11 +84,14 @@ void	draw_map(t_game g, t_map map, int i, int j)
 				MLX_PUT(g.mlx, g.win, img.f.img, j * 64, i * 64);
 		}
 	}
-	MLX_PUT(g.mlx, g.win, img.p.img, g.p.x, g.p.y);
 	if (g.p.c_col == g.map.coins)
 		MLX_PUT(g.mlx, g.win, img.e_o.img, map.exit_x * 64, map.exit_y * 64);
 	else
 		MLX_PUT(g.mlx, g.win, img.e_c.img, map.exit_x * 64, map.exit_y * 64);
+	MLX_PUT(g.mlx, g.win, img.p.img, g.p.x, g.p.y);
+	mlx_string_put(g.mlx,g.win,(g.map.x-2) * 64, 20, 0x00FF00,n_moves(g.mv));
+	ft_putnbr(g.mv);
+	ft_putchar('\n');
 }
 
 int	quit(t_game *param)
@@ -73,31 +100,27 @@ int	quit(t_game *param)
 	exit(1);
 }
 
-int	f(int key, t_game *pm)
+int	f(int key, t_game *p)
 {
-	if (key == UP_KEY && 
-		pm->map.lines[(pm->p.y - 64) / 64][pm->p.x / 64] != '1')
-		pm->p.y -= 64;
-	else if (key == DOWN_KEY
-		&& pm->map.lines[(pm->p.y + 64) / 64][pm->p.x / 64] != '1')
-		pm->p.y += 64;
-	else if (key == LEFT_KEY
-		&& pm->map.lines[pm->p.y / 64][(pm->p.x - 64) / 64] != '1')
-		pm->p.x -= 64;
-	else if (key == RIGHT_KEY
-		&& pm->map.lines[pm->p.y / 64][(pm->p.x + 64) / 64] != '1')
-		pm->p.x += 64;
+	if (key == UK && p->map.ln[(p->p.y - 64) / 64][p->p.x / 64] != '1')
+		somethng(p, 0);
+	else if (key == DK && p->map.ln[(p->p.y + 64) / 64][p->p.x / 64] != '1')
+		somethng(p, 1);
+	else if (key == LK && p->map.ln[p->p.y / 64][(p->p.x - 64) / 64] != '1')
+		somethng(p, 2);
+	else if (key == RK && p->map.ln[p->p.y / 64][(p->p.x + 64) / 64] != '1')
+		somethng(p, 3);
 	else if (key == ESC_KEY)
-		quit(pm);
-	if (pm->map.lines[pm->p.y / 64][pm->p.x / 64] == 'C')
+		quit(p);
+	if (p->map.ln[p->p.y / 64][p->p.x / 64] == 'C')
 	{
-		pm->p.c_col++;
-		pm->map.lines[pm->p.y / 64][pm->p.x / 64] = '0';
+		p->p.c_col++;
+		p->map.ln[p->p.y / 64][p->p.x / 64] = '0';
 	}
-	if (pm->p.c_col == pm->map.coins 
-		&& pm->p.x == pm->map.exit_x * 64 && pm->p.y == pm->map.exit_y * 64)
-		quit(pm);
-	draw_map(*pm, pm->map, -1, -1);
+	if (p->p.c_col == p->map.coins 
+		&& p->p.x == p->map.exit_x * 64 && p->p.y == p->map.exit_y * 64)
+		quit(p);
+	draw_map(*p, p->map, -1, -1);
 	return (0);
 }
 
@@ -111,6 +134,7 @@ void	main_game(t_map map)
 	game.p.x = map.pos_x * 64;
 	game.p.y = map.pos_y * 64;
 	game.p.c_col = 0;
+	game.mv = 0;
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	mlx_key_hook(game.win, f, &game);

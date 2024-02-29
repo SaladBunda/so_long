@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/27 22:29:51 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/29 21:57:30 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_map
 {
-	char	**lines;
+	char	**ln;
 	int		y;
 	int		x;
 	int		coins;
@@ -63,6 +63,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	int			mv;
 	t_map		map;
 	t_player	p;
 }	t_game;
@@ -81,5 +82,8 @@ int		parsing_test(t_map *map);
 void	start_position(t_map *map);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);
 void	main_game(t_map map);
+void	ft_putnbr(int n);
+char	*ft_itoa(int n);
+char	*n_moves(int n);
 
 #endif

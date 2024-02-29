@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/27 22:34:21 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:53:39 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,20 @@ int	fill_pixels(t_map *map, int i, int j)
 
 	while (++j < 5)
 		arr[j] = 0;
-	while (map->lines[++i])
+	while (map->ln[++i])
 	{
 		j = -1;
-		while (map->lines[i][++j])
+		while (map->ln[i][++j])
 		{
-			if (map->lines[i][j] == '0')
+			if (map->ln[i][j] == '0')
 				arr[0]++;
-			else if (map->lines[i][j] == '1')
+			else if (map->ln[i][j] == '1')
 				arr[1]++;
-			else if (map->lines[i][j] == 'C')
+			else if (map->ln[i][j] == 'C')
 				arr[2]++;
-			else if (map->lines[i][j] == 'E')
+			else if (map->ln[i][j] == 'E')
 				arr[3]++;
-			else if (map->lines[i][j] == 'P')
+			else if (map->ln[i][j] == 'P')
 				arr[4]++;
 			else
 				return (0);
@@ -108,19 +108,19 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	count_fd = open(get_path(filename), O_RDONLY);
 	count = count_lines(count_fd);
 	lines_fd = open(get_path(filename), O_RDONLY);
-	map->lines = malloc((count + 1) * sizeof(char *));
-	if (!map->lines)
+	map->ln = malloc((count + 1) * sizeof(char *));
+	if (!map->ln)
 		return (0);
 	while (i < count)
-		map->lines[i++] = get_next_line(lines_fd);
-	map->lines[i] = NULL;
-	if (test_lines(map->lines) != 1)
+		map->ln[i++] = get_next_line(lines_fd);
+	map->ln[i] = NULL;
+	if (test_lines(map->ln) != 1)
 		return (0);
 	map->y = count;
-	map->x = ft_strlen(map->lines[0]);
+	map->x = ft_strlen(map->ln[0]);
 	if (fill_pixels(map, -1, -1) != 1)
 		return (0);
-	if (test_borders(map->lines, map->x, map->y) != 1)
+	if (test_borders(map->ln, map->x, map->y) != 1)
 		return (0);
 	if (parsing_test(map))
 		return (1);
