@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/29 19:53:39 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:46:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,18 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	int	i;
 
 	i = 0;
-	count_fd = open(get_path(filename), O_RDONLY);
+	count_fd = open(get_path(filename, 0), O_RDONLY);
 	count = count_lines(count_fd);
-	lines_fd = open(get_path(filename), O_RDONLY);
+	lines_fd = open(get_path(filename, 0), O_RDONLY);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
 	while (i < count)
 		map->ln[i++] = get_next_line(lines_fd);
 	map->ln[i] = NULL;
+	// int t =0;
+	// while(map->ln[t])
+	// 	dprintf(1,"%p\n",map->ln[t++]);
 	if (test_lines(map->ln) != 1)
 		return (0);
 	map->y = count;

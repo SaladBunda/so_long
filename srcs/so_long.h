@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/04 22:07:08 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:35:02 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_map
 	int		ex_y;
 	int		pos_x;
 	int		pos_y;
+	char	*fullpath;
 }	t_map;
 
 typedef struct s_img
@@ -82,7 +83,7 @@ char	*ft_strdup(char *s1);
 void	*ft_memfunc(void *b, void *s, int c, size_t len);
 void	ft_putchar(int c);
 int		count_lines(int fd);
-char	*get_path(char *filename);
+char	*get_path(char *filename, int i);
 int		parsing_test(t_map *map);
 void	start_position(t_map *map);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);

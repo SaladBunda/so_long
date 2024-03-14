@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:57:03 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/27 21:55:38 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:37:10 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ int	count_lines(int fd)
 	return (count);
 }
 
-char	*get_path(char *filename)
+char	*get_path(char *filename, int i)
 {
 	int		length;
-	int		i;
+	char	*tmp;
 	char	*path;
 	char	*fullpath;
 
-	i = 0;
 	length = ft_strlen(filename);
 	path = "./maps/";
 	fullpath = malloc(length + ft_strlen(path) + 1);
@@ -39,7 +38,9 @@ char	*get_path(char *filename)
 		fullpath[i++] = 0;
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, filename, length);
-	return (fullpath);
+	tmp = fullpath;
+	free(fullpath);
+	return (tmp);
 }
 
 int	ft_strchr(const char *s, int c)

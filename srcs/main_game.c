@@ -108,7 +108,7 @@ void	draw_map(t_game g, t_map map, int i, int j)
 		MLX_PUT(g.mlx, g.win, g.txt.e_o.img, map.ex_x * 64, map.ex_y * 64);
 	else
 		MLX_PUT(g.mlx, g.win, g.txt.e_c.img, map.ex_x * 64, map.ex_y * 64);
-	MLX_PUT(g.mlx, g.win, g.txt.p.img, g.p.x, g.p.y);	
+	MLX_PUT(g.mlx, g.win, g.txt.p.img, g.p.x, g.p.y);
 }
 
 int	f(int key, t_game *p)
@@ -131,8 +131,14 @@ int	f(int key, t_game *p)
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
 		quit(p);
-	draw_map(*p, p->map, -1, -1);
+	// draw_map(*p, p->map, -1, -1);
 	return (0);
+}
+
+int draw_enemy(t_game *g)
+{
+	draw_map(*g, g->map, -1, -1);
+	return 0;
 }
 
 void	main_game(t_map map)
@@ -149,9 +155,9 @@ void	main_game(t_map map)
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	load_textures(&game.txt,game);
+
 	mlx_key_hook(game.win, f, &game);
-	if (i++ == 0)
-		draw_map(game, map, (-1), (-1));
+	mlx_loop_hook(game.mlx,draw_enemy,&game);
 	mlx_hook(game.win, 17, 0, quit, &game);
 	mlx_loop(game.mlx);
 }

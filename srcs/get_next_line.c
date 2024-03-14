@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:08:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/26 21:59:45 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:59:35 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ char	*ft_read(int fd, char *buffer, int index)
 			free(frees);
 			if (ft_strchr(buffer, '\n'))
 				break ;
+			dprintf(1,"%p\n",buffer);
 		}
 	}
-	return (free(tmp), buffer);
+	return (buffer);
 }
 
 char	*gettline(char *buffer)
