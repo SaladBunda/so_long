@@ -13,16 +13,16 @@
 #ifndef KEY_CODES_H
 # define KEY_CODES_H
 
-# define UK 13
-# define LK 0
-# define RK 2
-# define DK 1
-# define ESC_KEY 53
+// # define UK 13
+// # define LK 0
+// # define RK 2
+// # define DK 1
+// # define ESC_KEY 53
 
-# define L_UP_KEY 119
-# define L_LEFT_KEY 97
-# define L_RIGHT_KEY 100
-# define L_DOWN_KEY 115
-# define L_ESC_KEY 65307
+# define UK 119
+# define LK 97
+# define RK 100
+# define DK 115
+# define ESC_KEY 65307
 
 #endif

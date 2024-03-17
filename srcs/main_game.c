@@ -144,9 +144,9 @@ int draw_enemy(t_game *g)
 void	main_game(t_map map)
 {
 	t_game	game;
-	int		i;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	game.map = map;
 	game.p.x = map.pos_x * 64;
 	game.p.y = map.pos_y * 64;

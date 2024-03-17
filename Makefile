@@ -1,10 +1,10 @@
 SRCS= map.c util_fs.c util_functions.c get_next_line.c map_parsing.c main.c main_game.c extra_f.c
 DIR=./srcs/
 OBJS=$(patsubst %.c,$(DIR)%.o,$(SRCS)) 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Wall -Werror -I.
-# IFLAGS= -lmlx_Linux -lX11 -lXext
-IFLAGS = -lmlx -framework OpenGL -framework AppKit
+IFLAGS= -lmlx_Linux -lX11 -lXext
+# IFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME = so_long
 
 all: $(NAME)

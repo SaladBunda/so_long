@@ -38,7 +38,7 @@ char	*ft_read(int fd, char *buffer, int index)
 			dprintf(1,"%p\n",buffer);
 		}
 	}
-	return (buffer);
+	return (free(tmp),buffer);
 }
 
 char	*gettline(char *buffer)

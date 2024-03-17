@@ -15,10 +15,19 @@
 int	count_lines(int fd)
 {
 	int	count;
+	char *str;
 
+	str = get_next_line(fd);
 	count = 0;
-	while (get_next_line(fd))
+	while (str)
+	{
+		free(str);
+		str = get_next_line(fd);
 		count++;
+
+	}
+	free(str);
+	str = NULL;
 	return (count);
 }
 
@@ -39,7 +48,7 @@ char	*get_path(char *filename, int i)
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, filename, length);
 	tmp = fullpath;
-	free(fullpath);
+	// free(fullpath);
 	return (tmp);
 }
 

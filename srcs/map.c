@@ -104,10 +104,12 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	int	count;
 	int	i;
 
+	char *path = get_path(filename, 0);
 	i = 0;
-	count_fd = open(get_path(filename, 0), O_RDONLY);
+	count_fd = open(path, O_RDONLY);
 	count = count_lines(count_fd);
-	lines_fd = open(get_path(filename, 0), O_RDONLY);
+	lines_fd = open(path, O_RDONLY);
+	free(path);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
