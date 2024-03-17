@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 15:50:15 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:59:23 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define MLX_PUT mlx_put_image_to_window
 # define MLX_S mlx_string_put
+# define MLX_XPM mlx_xpm_file_to_image
+# define MLX_DATA mlx_get_data_addr
 
 typedef struct s_map
 {
@@ -98,5 +100,6 @@ void	ft_putstr(char *str);
 char	*n_moves(int n);
 char	*ft_itoa(int n);
 void	ft_settozero(int b[], int c, int len);
+void	put_moves(t_game g);
 
 #endif
