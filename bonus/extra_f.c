@@ -6,11 +6,11 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/04 13:33:08 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:50:29 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 char	*ft_itoa(int n)
 {
@@ -19,6 +19,8 @@ char	*ft_itoa(int n)
 	char	*s;
 
 	count = 0;
+	if (n == 0)
+		count++;
 	cpy = n;
 	while (cpy > 0)
 	{
@@ -54,6 +56,7 @@ char	*n_moves(int n)
 		fullpath[i++] = 0;
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, str, length);
+	free(str);
 	return (fullpath);
 }
 
@@ -72,4 +75,12 @@ int	quit(t_game *param)
 	mlx_destroy_window(param->mlx, param->win);
 	free_map(*param);
 	exit(1);
+}
+void ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+		write(1,&str[i++],1);
 }

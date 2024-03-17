@@ -6,11 +6,11 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/29 19:54:12 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:50:50 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	start_position(t_map *map)
 {
@@ -30,8 +30,8 @@ void	start_position(t_map *map)
 			}
 			else if (map->ln[i][j] == 'E')
 			{
-				map->exit_x = j;
-				map->exit_y = i;
+				map->ex_x = j;
+				map->ex_y = i;
 			}
 			j++;
 		}

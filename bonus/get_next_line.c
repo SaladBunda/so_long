@@ -6,23 +6,23 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:08:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/26 21:59:45 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:50:33 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 char	*ft_read(int fd, char *buffer, int index)
 {
 	char	*tmp;
 	char	*frees;
 
-	tmp = malloc(sizeof(char) * 10 + 1);
+	tmp = malloc(sizeof(char) * 300 + 1);
 	if (!tmp)
 		return (free(buffer), buffer = NULL, NULL);
 	while (index > 0)
 	{
-		index = read(fd, tmp, 10);
+		index = read(fd, tmp, 300);
 		if (index == -1)
 			return (free(buffer), free(tmp), NULL);
 		if (index != 0)
@@ -37,7 +37,7 @@ char	*ft_read(int fd, char *buffer, int index)
 				break ;
 		}
 	}
-	return (free(tmp), buffer);
+	return (free(tmp),buffer);
 }
 
 char	*gettline(char *buffer)

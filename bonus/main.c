@@ -6,11 +6,11 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/04 13:27:45 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:50:44 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	ext_test(char *filename)
 {
@@ -50,15 +50,15 @@ int	main(int ac, char **av)
 	{
 		if (ext_test(av[1]) == 1)
 		{
-			perror("its a map\n");
+			ft_putstr("its a map\n");
 			if (map_tests(av[1], &map, 0, 0) == 1)
 			{
 				main_game(map);
 			}
 			else
-				perror("bad map");
+				ft_putstr("bad map");
 		}
 		else
-			perror("not a .ber file");
+			ft_putstr("not a .ber file");
 	}
 }

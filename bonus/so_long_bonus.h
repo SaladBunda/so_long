@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/29 22:11:17 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:50:15 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -19,16 +19,20 @@
 # include <fcntl.h>
 # include <mlx.h>
 
+# define MLX_PUT mlx_put_image_to_window
+# define MLX_S mlx_string_put
+
 typedef struct s_map
 {
 	char	**ln;
 	int		y;
 	int		x;
 	int		coins;
-	int		exit_x;
-	int		exit_y;
+	int		ex_x;
+	int		ex_y;
 	int		pos_x;
 	int		pos_y;
+	char	*fullpath;
 }	t_map;
 
 typedef struct s_img
@@ -46,10 +50,15 @@ typedef struct s_txts
 {
 	t_img	w;
 	t_img	f;
+	t_img	pu;
+	t_img	pd;
+	t_img	pl;
+	t_img	pr;
 	t_img	p;
-	t_img	c;
+	t_img	c[12];
 	t_img	e_c;
 	t_img	e_o;
+	t_img	m;
 }	t_txts;
 
 typedef struct s_player
@@ -66,6 +75,7 @@ typedef struct s_game
 	int			mv;
 	t_map		map;
 	t_player	p;
+	t_txts		txt;
 }	t_game;
 
 int		ft_strlen(char *str);
@@ -77,14 +87,16 @@ char	*ft_strdup(char *s1);
 void	*ft_memfunc(void *b, void *s, int c, size_t len);
 void	ft_putchar(int c);
 int		count_lines(int fd);
-char	*get_path(char *filename);
+char	*get_path(char *filename, int i);
 int		parsing_test(t_map *map);
 void	start_position(t_map *map);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);
 void	main_game(t_map map);
 void	ft_putnbr(int n);
-char	*ft_itoa(int n);
-char	*n_moves(int n);
 int		quit(t_game *param);
+void	ft_putstr(char *str);
+char	*n_moves(int n);
+char	*ft_itoa(int n);
+void	ft_settozero(int b[], int c, int len);
 
 #endif

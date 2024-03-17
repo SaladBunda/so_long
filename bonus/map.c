@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/29 19:53:39 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:37:41 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,16 @@ int	test_pixels(int array[], int width, int height)
 		return (0);
 	if (array[2] < 1)
 		return (0);
+	if (array[5] < 1)
+		return (0);
 	return (1);
 }
 
 int	fill_pixels(t_map *map, int i, int j)
 {
-	int	arr[5];
+	int	arr[6];
 
-	while (++j < 5)
-		arr[j] = 0;
+	ft_settozero(arr,0,6);
 	while (map->ln[++i])
 	{
 		j = -1;
@@ -92,6 +93,8 @@ int	fill_pixels(t_map *map, int i, int j)
 				arr[3]++;
 			else if (map->ln[i][j] == 'P')
 				arr[4]++;
+			else if (map->ln[i][j] == 'M')
+				arr[5]++;
 			else
 				return (0);
 		}
@@ -104,10 +107,12 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	int	count;
 	int	i;
 
+	char *path = get_path(filename, 0);
 	i = 0;
-	count_fd = open(get_path(filename), O_RDONLY);
+	count_fd = open(path, O_RDONLY);
 	count = count_lines(count_fd);
-	lines_fd = open(get_path(filename), O_RDONLY);
+	lines_fd = open(path, O_RDONLY);
+	free(path);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);

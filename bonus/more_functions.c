@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_codes.h                                        :+:      :+:    :+:   */
+/*   more_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 16:26:05 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 12:53:59 by ael-maaz         ###   ########.fr       */
+/*   Created: 2024/03/17 15:27:32 by ael-maaz          #+#    #+#             */
+/*   Updated: 2024/03/17 15:49:46 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEY_CODES_H
-# define KEY_CODES_H
+#include "so_long_bonus.h"
 
-# define UK 13
-# define LK 0
-# define RK 2
-# define DK 1
-# define ESC_KEY 53
+void    ft_settozero(int b[], int c, int len)
+{
+    int    i;
 
-// # define UK 119
-// # define LK 97
-// # define RK 100
-// # define DK 115
-// # define ESC_KEY 65307
+    i = 0;
+    while (i < len)
+    {
+        i++;
+        (*(b++)) =  c;
+    }
+    return ;
+}
 
-#endif
+void put_moves(t_game g)
+{
+	char *str;
+
+	str = n_moves(g.mv);
+	MLX_S(g.mlx, g.win, (g.map.x - 2) * 64, 20, 0x00FF00, n_moves(g.mv));
+	free(str);
+	
+}

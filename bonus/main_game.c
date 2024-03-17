@@ -10,11 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 #include "key_codes.h"
 
-#define MLX_PUT mlx_put_image_to_window
-#define MLX_S mlx_string_put
+void	load_player(t_txts *x, t_game g)
+{
+	x->pu.img = mlx_xpm_file_to_image(g.mlx, "./textures/pu.xpm",
+			&x->pu.wth, &x->pu.hht);
+	x->pu.addr = mlx_get_data_addr(x->pu.img, &x->pu.bpp, &x->pu.ll, &x->pu.en);
+	x->pd.img = mlx_xpm_file_to_image(g.mlx, "./textures/pd.xpm",
+			&x->pd.wth, &x->pd.hht);
+	x->pd.addr = mlx_get_data_addr(x->pd.img, &x->pd.bpp, &x->pd.ll, &x->pd.en);
+	x->pr.img = mlx_xpm_file_to_image(g.mlx, "./textures/pr.xpm",
+			&x->pr.wth, &x->pr.hht);
+	x->pr.addr = mlx_get_data_addr(x->pr.img, &x->pr.bpp, &x->pr.ll, &x->pr.en);
+	x->pl.img = mlx_xpm_file_to_image(g.mlx, "./textures/pl.xpm",
+			&x->pl.wth, &x->pl.hht);
+	x->pl.addr = mlx_get_data_addr(x->pl.img, &x->pl.bpp, &x->pl.ll, &x->pl.en);
+	x->p=x->pu;
+}
 
 void	load_textures(t_txts *x, t_game g)
 {
@@ -24,12 +38,9 @@ void	load_textures(t_txts *x, t_game g)
 	x->f.img = mlx_xpm_file_to_image(g.mlx, "./textures/f.xpm",
 			&x->f.wth, &x->f.hht);
 	x->f.addr = mlx_get_data_addr(x->f.img, &x->f.bpp, &x->f.ll, &x->f.en);
-	x->p.img = mlx_xpm_file_to_image(g.mlx, "./textures/p.xpm",
-			&x->p.wth, &x->p.hht);
-	x->p.addr = mlx_get_data_addr(x->p.img, &x->p.bpp, &x->p.ll, &x->p.en);
-	x->c.img = mlx_xpm_file_to_image(g.mlx, "./textures/c.xpm",
-			&x->c.wth, &x->c.hht);
-	x->c.addr = mlx_get_data_addr(x->c.img, &x->c.bpp, &x->c.ll, &x->c.en);
+	x->c[0].img = mlx_xpm_file_to_image(g.mlx, "./textures/c.xpm",
+			&x->c[0].wth, &x->c[0].hht);
+	x->c[0].addr = mlx_get_data_addr(x->c[0].img, &x->c[0].bpp, &x->c[0].ll, &x->c[0].en);
 	x->e_c.img = mlx_xpm_file_to_image(g.mlx, "./textures/ec.xpm",
 			&x->e_c.wth, &x->e_c.hht);
 	x->e_c.addr = mlx_get_data_addr(x->e_c.img, &x->e_c.bpp,
@@ -38,59 +49,65 @@ void	load_textures(t_txts *x, t_game g)
 			&x->e_o.wth, &x->e_o.hht);
 	x->e_o.addr = mlx_get_data_addr(x->e_o.img, &x->e_o.bpp,
 			&x->e_o.ll, &x->e_o.en);
+	load_player(x,g);
 }
 
 void	somethng(t_game *p, int par)
 {
 	if (par == 0)
 	{
+		p->txt.p=p->txt.pu;
 		p->p.y -= 64;
 		p->mv++;
 	}
 	else if (par == 1)
 	{
+		p->txt.p=p->txt.pd;
 		p->p.y += 64;
 		p->mv++;
 	}
 	else if (par == 2)
 	{
+		p->txt.p=p->txt.pl;
 		p->p.x -= 64;
 		p->mv++;
 	}
 	else if (par == 3)
 	{
+		p->txt.p=p->txt.pr;
 		p->p.x += 64;
 		p->mv++;
 	}
+	ft_putstr("Moves: ");
+	ft_putnbr(p->mv);
+	ft_putchar('\n');
 }
 
 void	draw_map(t_game g, t_map map, int i, int j)
 {
-	t_txts	img;
-
-	load_textures(&img, g);
 	while (map.ln[++i])
 	{
 		j = -1;
 		while (map.ln[i][++j])
 		{
 			if (map.ln[i][j] == '1')
-				MLX_PUT(g.mlx, g.win, img.w.img, j * 64, i * 64);
-			else if (map.ln[i][j] == 'C')
+				MLX_PUT(g.mlx, g.win, g.txt.w.img, j * 64, i * 64);
+			else if (map.ln[i][j] == 'c')
 			{
-				MLX_PUT(g.mlx, g.win, img.f.img, j * 64, i * 64);
-				MLX_PUT(g.mlx, g.win, img.c.img, j * 64, i * 64);
+				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
+				MLX_PUT(g.mlx, g.win, g.txt.c[0].img, j * 64, i * 64);
 			}
 			else
-				MLX_PUT(g.mlx, g.win, img.f.img, j * 64, i * 64);
+				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
 		}
 	}
 	if (g.p.c_col == g.map.coins)
-		MLX_PUT(g.mlx, g.win, img.e_o.img, map.exit_x * 64, map.exit_y * 64);
+		MLX_PUT(g.mlx, g.win, g.txt.e_o.img, map.ex_x * 64, map.ex_y * 64);
 	else
-		MLX_PUT(g.mlx, g.win, img.e_c.img, map.exit_x * 64, map.exit_y * 64);
-	MLX_PUT(g.mlx, g.win, img.p.img, g.p.x, g.p.y);
-	MLX_S(g.mlx, g.win, (g.map.x - 2) * 64, 20, 0x00FF00, n_moves(g.mv));
+		MLX_PUT(g.mlx, g.win, g.txt.e_c.img, map.ex_x * 64, map.ex_y * 64);
+	MLX_PUT(g.mlx, g.win, g.txt.p.img, g.p.x, g.p.y);
+
+	
 }
 
 int	f(int key, t_game *p)
@@ -111,18 +128,23 @@ int	f(int key, t_game *p)
 		p->map.ln[p->p.y / 64][p->p.x / 64] = '0';
 	}
 	if (p->p.c_col == p->map.coins 
-		&& p->p.x == p->map.exit_x * 64 && p->p.y == p->map.exit_y * 64)
+		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
 		quit(p);
-	draw_map(*p, p->map, -1, -1);
 	return (0);
+}
+
+int draw_enemy(t_game *g)
+{
+	draw_map(*g, g->map, -1, -1);
+	return 0;
 }
 
 void	main_game(t_map map)
 {
 	t_game	game;
-	int		i;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	game.map = map;
 	game.p.x = map.pos_x * 64;
 	game.p.y = map.pos_y * 64;
@@ -130,9 +152,10 @@ void	main_game(t_map map)
 	game.mv = 0;
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
+	load_textures(&game.txt,game);
+
 	mlx_key_hook(game.win, f, &game);
-	if (i++ == 0)
-		draw_map(game, map, (-1), (-1));
+	mlx_loop_hook(game.mlx,draw_enemy,&game);
 	mlx_hook(game.win, 17, 0, quit, &game);
 	mlx_loop(game.mlx);
 }

@@ -6,11 +6,11 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:13:24 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/29 22:12:46 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:51:02 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	ft_strlen(char *str)
 {
@@ -88,6 +88,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*p;
 	int		i;
 	int		j;
+	
 
 	i = -1;
 	j = 0;
@@ -106,5 +107,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		p[i++] = s2[j++];
 	p[length] = '\0';
-	return (p);
+	return (free(s2),s2 = NULL,p);
 }

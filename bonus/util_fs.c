@@ -6,30 +6,38 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:57:03 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/02/27 21:55:38 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:50:56 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	count_lines(int fd)
 {
 	int	count;
+	char *str;
 
+	str = get_next_line(fd);
 	count = 0;
-	while (get_next_line(fd))
+	while (str)
+	{
+		free(str);
+		str = NULL;
+		str = get_next_line(fd);
 		count++;
+	}
+	free(str);
+	str = NULL;
 	return (count);
 }
 
-char	*get_path(char *filename)
+char	*get_path(char *filename, int i)
 {
 	int		length;
-	int		i;
+	char	*tmp;
 	char	*path;
 	char	*fullpath;
 
-	i = 0;
 	length = ft_strlen(filename);
 	path = "./maps/";
 	fullpath = malloc(length + ft_strlen(path) + 1);
@@ -39,7 +47,9 @@ char	*get_path(char *filename)
 		fullpath[i++] = 0;
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, filename, length);
-	return (fullpath);
+	tmp = fullpath;
+	// free(fullpath);
+	return (tmp);
 }
 
 int	ft_strchr(const char *s, int c)
