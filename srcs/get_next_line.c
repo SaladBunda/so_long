@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:08:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/13 20:59:35 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:23:31 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ char	*ft_read(int fd, char *buffer, int index)
 	char	*tmp;
 	char	*frees;
 
-	tmp = malloc(sizeof(char) * 10 + 1);
+	tmp = malloc(sizeof(char) * 300 + 1);
 	if (!tmp)
 		return (free(buffer), buffer = NULL, NULL);
 	while (index > 0)
 	{
-		index = read(fd, tmp, 10);
+		index = read(fd, tmp, 300);
 		if (index == -1)
 			return (free(buffer), free(tmp), NULL);
 		if (index != 0)
@@ -35,7 +35,6 @@ char	*ft_read(int fd, char *buffer, int index)
 			free(frees);
 			if (ft_strchr(buffer, '\n'))
 				break ;
-			dprintf(1,"%p\n",buffer);
 		}
 	}
 	return (free(tmp),buffer);

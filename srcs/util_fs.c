@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:57:03 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/13 20:37:10 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:22:13 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@ int	count_lines(int fd)
 	while (str)
 	{
 		free(str);
+<<<<<<< HEAD
 		str = get_next_line(fd);
 		count++;
 
+=======
+		str = NULL;
+		str = get_next_line(fd);
+		count++;
+>>>>>>> e9f1c46daa4edeef93699b03f0d18c9f9521cedd
 	}
 	free(str);
 	str = NULL;
