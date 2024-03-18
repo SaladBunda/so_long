@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 19:59:23 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:51:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <mlx.h>
+# include "../minilibx-linux/mlx.h"
 
 # define MLX_PUT mlx_put_image_to_window
 # define MLX_S mlx_string_put
@@ -34,6 +34,8 @@ typedef struct s_map
 	int		ex_y;
 	int		pos_x;
 	int		pos_y;
+	int		m_x;
+	int		m_y;
 	char	*fullpath;
 }	t_map;
 
@@ -77,6 +79,7 @@ typedef struct s_game
 	int			mv;
 	t_map		map;
 	t_player	p;
+	t_player	m;
 	t_txts		txt;
 }	t_game;
 

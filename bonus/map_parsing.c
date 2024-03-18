@@ -6,18 +6,14 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 15:50:50 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:40:45 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	start_position(t_map *map)
+void	start_position(t_map *map, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
 	while (map->ln[i + 1])
 	{
 		j = 1;
@@ -32,6 +28,11 @@ void	start_position(t_map *map)
 			{
 				map->ex_x = j;
 				map->ex_y = i;
+			}
+			else if (map->ln[i][j] == 'M')
+			{
+				map->m_x = j;
+				map->m_y = i;
 			}
 			j++;
 		}
