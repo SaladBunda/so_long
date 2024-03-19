@@ -23,7 +23,7 @@ void	load_player(t_txts *x, t_game g)
 	x->pr.addr = MLX_DATA(x->pr.img, &x->pr.bpp, &x->pr.ll, &x->pr.en);
 	x->pl.img = MLX_XPM(g.mlx, "./textures/pl.xpm", &x->pl.wth, &x->pl.hht);
 	x->pl.addr = MLX_DATA(x->pl.img, &x->pl.bpp, &x->pl.ll, &x->pl.en);
-	x->p=x->pu;
+	x->p = x->pu;
 }
 
 void	load_textures(t_txts *x, t_game g)
@@ -90,11 +90,6 @@ void	draw_map(t_game g, t_map map, int i, int j)
 				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
 				MLX_PUT(g.mlx, g.win, g.txt.c[0].img, j * 64, i * 64);
 			}
-			// else if (map.ln[i][j] == 'M')
-			// {
-			// 	MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
-			// 	MLX_PUT(g.mlx, g.win, g.txt.m.img, j * 64, i * 64);
-			// }
 			else
 				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
 		}
@@ -132,13 +127,6 @@ int	f(int key, t_game *p)
 	if(p->p.x == p->m.x && p->p.y == p->m.y)
 		quit(p);
 	return (0);
-}
-
-int draw_enemy(t_game *g)
-{
-	m_enemy(g);
-	draw_map(*g, g->map, -1, -1);
-	return 0;
 }
 
 void	main_game(t_map map)

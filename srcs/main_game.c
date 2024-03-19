@@ -131,14 +131,7 @@ int	f(int key, t_game *p)
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
 		quit(p);
-	// draw_map(*p, p->map, -1, -1);
 	return (0);
-}
-
-int draw_enemy(t_game *g)
-{
-	draw_map(*g, g->map, -1, -1);
-	return 0;
 }
 
 void	main_game(t_map map)

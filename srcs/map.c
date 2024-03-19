@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/16 16:17:35 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 02:40:27 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,13 @@ int	fill_pixels(t_map *map, int i, int j)
 
 int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 {
-	int	count;
-	int	i;
+	int		count;
+	int		i;
+	char	*path;
 
-	char *path = get_path(filename, 0);
+	path = get_path(filename, 0);
 	i = 0;
-	count_fd = open(path, O_RDONLY);
-	count = count_lines(count_fd);
-	lines_fd = open(path, O_RDONLY);
+	get_fds(path, &count_fd, &lines_fd, &count);
 	free(path);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)

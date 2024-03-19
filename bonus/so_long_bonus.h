@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/18 22:53:13 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 02:42:48 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,10 @@ char	*ft_itoa(int n);
 void	ft_settozero(int b[], int c, int len);
 void	put_moves(t_game g);
 void	m_enemy(t_game *g);
+void	get_fds(char *path,int *c_fd, int *l_fd, int *count);
+int		draw_enemy(t_game *g);
+void	draw_map(t_game g, t_map map, int i, int j);
+
+
 
 #endif

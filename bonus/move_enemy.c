@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:06:44 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/18 23:01:49 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 02:47:10 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #define LCG_A 1664525
 #define LCG_C 1013904223
 #define LCG_M 4294967296 
-
 
 int lcg_rand() {
 	static unsigned int lcg_seed = 12345; 
@@ -76,13 +75,10 @@ void m_enemy(t_game *g)
 	if(g->m.x == g->p.x && g->m.y == g->p.y)
 		quit(g);
 }
-// int main() {
-//     int i;
-//     // Initialize seed using current time
 
-//     for (i = 0; i < 10; i++) {
-//         grintf("%u\n", lcg_rand());
-//     }
-//     return 0;
-// }
-
+int draw_enemy(t_game *g)
+{
+	m_enemy(g);
+	draw_map(*g, g->map, -1, -1);
+	return 0;
+}

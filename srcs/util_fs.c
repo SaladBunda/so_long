@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:57:03 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 12:53:16 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 02:37:45 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	count_lines(int fd)
 {
-	int	count;
-	char *str;
+	int		count;
+	char	*str;
 
 	str = get_next_line(fd);
 	count = 0;
@@ -34,7 +34,6 @@ int	count_lines(int fd)
 char	*get_path(char *filename, int i)
 {
 	int		length;
-	char	*tmp;
 	char	*path;
 	char	*fullpath;
 
@@ -47,9 +46,7 @@ char	*get_path(char *filename, int i)
 		fullpath[i++] = 0;
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, filename, length);
-	tmp = fullpath;
-	// free(fullpath);
-	return (tmp);
+	return (fullpath);
 }
 
 int	ft_strchr(const char *s, int c)

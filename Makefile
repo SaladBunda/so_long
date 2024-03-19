@@ -7,7 +7,7 @@ OBJB=$(patsubst %.c, $(BONUS_DIR)%.o,$(SRCB))
 CC = cc
 CFLAGS = -Wall -Wextra -Wall -Werror -I.
 # IFLAGS= -lmlx_Linux -lX11 -lXext
-IFLAGS = -Lminilibx-linux -lmlx -framework OpenGL -framework AppKit
+IFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME = so_long
 BONUS_NAME = so_long_bonus
 
