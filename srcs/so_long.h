@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 02:50:40 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 02:52:36 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <mlx.h>
+
+# define MLX_PUT mlx_put_image_to_window
+# define MLX_S mlx_string_put
+# define MLX_XPM mlx_xpm_file_to_image
+# define MLX_DATA mlx_get_data_addr
 
 typedef struct s_map
 {
