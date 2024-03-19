@@ -43,7 +43,7 @@ void	load_textures(t_txts *x, t_game g)
 	load_player(x,g);
 }
 
-void load_coins(t_txts *x, t_game g);
+// void load_coins(t_txts *x, t_game g);
 
 void	somethng(t_game *p, int par)
 {
@@ -90,11 +90,11 @@ void	draw_map(t_game g, t_map map, int i, int j)
 				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
 				MLX_PUT(g.mlx, g.win, g.txt.c[0].img, j * 64, i * 64);
 			}
-			else if (map.ln[i][j] == 'M')
-			{
-				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
-				MLX_PUT(g.mlx, g.win, g.txt.m.img, j * 64, i * 64);
-			}
+			// else if (map.ln[i][j] == 'M')
+			// {
+			// 	MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
+			// 	MLX_PUT(g.mlx, g.win, g.txt.m.img, j * 64, i * 64);
+			// }
 			else
 				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
 		}
@@ -104,9 +104,9 @@ void	draw_map(t_game g, t_map map, int i, int j)
 	else
 		MLX_PUT(g.mlx, g.win, g.txt.e_c.img, map.ex_x * 64, map.ex_y * 64);
 	MLX_PUT(g.mlx, g.win, g.txt.p.img, g.p.x, g.p.y);
-	put_moves(g);
+	MLX_PUT(g.mlx, g.win, g.txt.m.img, g.m.x, g.m.y);
 
-	
+	put_moves(g);
 }
 
 int	f(int key, t_game *p)
@@ -136,6 +136,7 @@ int	f(int key, t_game *p)
 
 int draw_enemy(t_game *g)
 {
+	m_enemy(g);
 	draw_map(*g, g->map, -1, -1);
 	return 0;
 }
@@ -152,6 +153,7 @@ void	main_game(t_map map)
 	game.p.c_col = 0;
 	game.mv = 0;
 	game.mlx = mlx_init();
+	mlx_do_key_autorepeaton(game.mlx);
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	load_textures(&game.txt,game);
 

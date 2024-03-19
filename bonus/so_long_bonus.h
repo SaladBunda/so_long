@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/18 16:51:12 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/18 22:53:13 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../minilibx-linux/mlx.h"
+# include <mlx.h>
 
 # define MLX_PUT mlx_put_image_to_window
 # define MLX_S mlx_string_put
@@ -94,7 +94,7 @@ void	ft_putchar(int c);
 int		count_lines(int fd);
 char	*get_path(char *filename, int i);
 int		parsing_test(t_map *map);
-void	start_position(t_map *map);
+void	start_position(t_map *map, int i, int j);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);
 void	main_game(t_map map);
 void	ft_putnbr(int n);
@@ -104,5 +104,6 @@ char	*n_moves(int n);
 char	*ft_itoa(int n);
 void	ft_settozero(int b[], int c, int len);
 void	put_moves(t_game g);
+void	m_enemy(t_game *g);
 
 #endif

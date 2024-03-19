@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/18 16:40:45 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:15:47 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	parsing_test(t_map *map)
 	char	**map_cpy;
 
 	i = 0;
-	start_position(map);
+	start_position(map, 0, 0);
 	map_cpy = clone_map(map->ln,*map);
 	flood_fill(map_cpy, map->pos_y, map->pos_x, *map);
 	i = 0;
