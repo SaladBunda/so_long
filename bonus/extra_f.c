@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 15:50:29 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 00:49:10 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ char	*n_moves(int n)
 	return (fullpath);
 }
 
-void free_map(t_game game)
+void	free_map(t_game game)
 {
 	int	i;
-	i = 0;
 
-	while(game.map.ln[i])
+	i = 0;
+	while (game.map.ln[i])
 		free(game.map.ln[i++]);
 	free(game.map.ln);
 }
@@ -76,11 +76,12 @@ int	quit(t_game *param)
 	free_map(*param);
 	exit(1);
 }
-void ft_putstr(char *str)
+
+void	ft_putstr(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
-		write(1,&str[i++],1);
+	while (str[i])
+		write(1, &str[i++], 1);
 }

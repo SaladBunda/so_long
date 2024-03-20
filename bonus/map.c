@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 02:36:51 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:27:51 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	fill_pixels(t_map *map, int i, int j)
 {
 	int	arr[6];
 
-	ft_settozero(arr,0,6);
+	ft_settozero(arr, 0, 6);
 	while (map->ln[++i])
 	{
 		j = -1;
@@ -104,9 +104,9 @@ int	fill_pixels(t_map *map, int i, int j)
 
 int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 {
-	int	count;
-	int	i;
-	char *path;
+	int		count;
+	int		i;
+	char	*path;
 
 	path = get_path(filename, 0);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 02:52:36 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:29:44 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,7 @@ void	ft_putstr(char *str);
 void	get_fds(char *path, int *c_fd, int *l_fd, int *count);
 int		draw_enemy(t_game *g);
 void	draw_map(t_game g, t_map map, int i, int j);
+void	print_moves(t_game *p);
+void	load_textures(t_txts *x, t_game g);
 
 #endif

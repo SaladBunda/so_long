@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 02:42:48 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:45:27 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 # define MLX_PUT mlx_put_image_to_window
 # define MLX_S mlx_string_put
-# define MLX_XPM mlx_xpm_file_to_image
-# define MLX_DATA mlx_get_data_addr
+# define MLX_X mlx_xpm_file_to_image
+# define MLX_D mlx_get_data_addr
 
 typedef struct s_map
 {
@@ -74,13 +74,15 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	int			mv;
-	t_map		map;
-	t_player	p;
-	t_player	m;
-	t_txts		txt;
+	void			*mlx;
+	void			*win;
+	int				mv;
+	int				timer;
+	unsigned int	seed;
+	t_map			map;
+	t_player		p;
+	t_player		m;
+	t_txts			txt;
 }	t_game;
 
 int		ft_strlen(char *str);
@@ -105,10 +107,10 @@ char	*ft_itoa(int n);
 void	ft_settozero(int b[], int c, int len);
 void	put_moves(t_game g);
 void	m_enemy(t_game *g);
-void	get_fds(char *path,int *c_fd, int *l_fd, int *count);
+void	get_fds(char *path, int *c_fd, int *l_fd, int *count);
 int		draw_enemy(t_game *g);
 void	draw_map(t_game g, t_map map, int i, int j);
-
-
+void	print_moves(t_game *p);
+void	load_textures(t_txts *x, t_game g);
 
 #endif
