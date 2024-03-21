@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/20 00:49:10 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:04:25 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*n_moves(int n)
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, str, length);
 	free(str);
+	str = NULL;
 	return (fullpath);
 }
 

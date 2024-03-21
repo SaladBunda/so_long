@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:27:23 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 19:37:04 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:56:30 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	load_textures(t_txts *x, t_game g)
 	x->w.addr = MLX_DATA(x->w.img, &x->w.bpp, &x->w.ll, &x->w.en);
 	x->f.img = MLX_XPM(g.mlx, "./textures/f.xpm", &x->f.wth, &x->f.hht);
 	x->f.addr = MLX_DATA(x->f.img, &x->f.bpp, &x->f.ll, &x->f.en);
-	x->c.img = MLX_XPM(g.mlx, "./textures/c.xpm", &x->c.wth, &x->c.hht);
+	x->c.img = MLX_XPM(g.mlx, "./textures/c1.xpm", &x->c.wth, &x->c.hht);
 	x->c.addr = MLX_DATA(x->c.img, &x->c.bpp, &x->c.ll, &x->c.en);
 	x->e_c.img = MLX_XPM(g.mlx, "./textures/ec.xpm", &x->e_c.wth, &x->e_c.hht);
 	x->e_c.addr = MLX_DATA(x->e_c.img, &x->e_c.bpp, &x->e_c.ll, &x->e_c.en);

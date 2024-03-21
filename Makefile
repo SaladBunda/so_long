@@ -32,4 +32,6 @@ clean:
 fclean: clean
 	rm -rf $(NAME) $(BONUS_NAME)
 
+rebonus : fclean bonus
+
 re: fclean all

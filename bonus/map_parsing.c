@@ -6,13 +6,13 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:21:33 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/18 17:15:47 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:42:17 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	start_position(t_map *map, int i, int j)
+void	start_position(t_map *map, int i, int j, int k)
 {
 	while (map->ln[i + 1])
 	{
@@ -31,8 +31,8 @@ void	start_position(t_map *map, int i, int j)
 			}
 			else if (map->ln[i][j] == 'M')
 			{
-				map->m_x = j;
-				map->m_y = i;
+				(*map->m)[k].x = j;
+				(*map->m)[k++].y = i;
 			}
 			j++;
 		}
@@ -64,7 +64,7 @@ int	checking_filled_map(char *map[], int width, int height)
 		j = 0;
 		while (j < width)
 		{
-			if (map[i][j] != '0' && map[i][j] != '1')
+			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'M')
 				return (0);
 			j++;
 		}
@@ -104,7 +104,7 @@ int	parsing_test(t_map *map)
 	char	**map_cpy;
 
 	i = 0;
-	start_position(map, 0, 0);
+	start_position(map, 0, 0, 0);
 	map_cpy = clone_map(map->ln,*map);
 	flood_fill(map_cpy, map->pos_y, map->pos_x, *map);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 20:27:51 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:26:59 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	test_borders(char *map[], int width, int height)
 	return (1);
 }
 
-int	test_pixels(int array[], int width, int height)
+int	test_pxl(int array[], int width, int height)
 {
 	int	contour;
 
@@ -70,48 +70,49 @@ int	test_pixels(int array[], int width, int height)
 		return (0);
 	if (array[5] < 1)
 		return (0);
+	
 	return (1);
 }
 
 int	fill_pixels(t_map *map, int i, int j)
 {
-	int	arr[6];
+	int	a[6];
 
-	ft_settozero(arr, 0, 6);
+	ft_settozero(a, 0, 6);
 	while (map->ln[++i])
 	{
 		j = -1;
 		while (map->ln[i][++j])
 		{
 			if (map->ln[i][j] == '0')
-				arr[0]++;
+				a[0]++;
 			else if (map->ln[i][j] == '1')
-				arr[1]++;
+				a[1]++;
 			else if (map->ln[i][j] == 'C')
-				arr[2]++;
+				a[2]++;
 			else if (map->ln[i][j] == 'E')
-				arr[3]++;
+				a[3]++;
 			else if (map->ln[i][j] == 'P')
-				arr[4]++;
+				a[4]++;
 			else if (map->ln[i][j] == 'M')
-				arr[5]++;
+				a[5]++;
 			else
 				return (0);
 		}
 	}
-	return (map->coins = arr[2], test_pixels(arr, map->x, map->y));
+	return (map->coins = a[2], map->m_num = a[5], test_pxl(a, map->x, map->y));
 }
 
 int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 {
-	int		count;
-	int		i;
-	char	*path;
+	int			count;
+	int			i;
+	char		*path;
+	t_player	*enemy;
 
 	path = get_path(filename, 0);
 	i = 0;
 	get_fds(path, &count_fd, &lines_fd, &count);
-	free(path);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
@@ -123,6 +124,8 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	map->x = ft_strlen(map->ln[0]);
 	if (fill_pixels(map, -1, -1) != 1)
 		return (0);
+	enemy = malloc(sizeof(t_player) * map->m_num);
+	map->m = &enemy;
 	if (test_borders(map->ln, map->x, map->y) != 1)
 		return (0);
 	if (parsing_test(map))

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 20:45:27 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:35:43 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,32 @@
 # define MLX_X mlx_xpm_file_to_image
 # define MLX_D mlx_get_data_addr
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	c_col;
+}	t_player;
+
 typedef struct s_map
 {
-	char	**ln;
-	int		y;
-	int		x;
-	int		coins;
-	int		ex_x;
-	int		ex_y;
-	int		pos_x;
-	int		pos_y;
-	int		m_x;
-	int		m_y;
-	char	*fullpath;
+	char		**ln;
+	int			y;
+	int			x;
+	int			coins;
+	int			ex_x;
+	int			ex_y;
+	int			pos_x;
+	int			pos_y;
+	int			m_num;
+	char		*fullpath;
+	t_player	**m;
 }	t_map;
 
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
+	char	*a;
 	int		bpp;
 	int		ll;
 	int		en;
@@ -59,29 +66,26 @@ typedef struct s_txts
 	t_img	pl;
 	t_img	pr;
 	t_img	p;
+	t_img	co;
 	t_img	c[12];
 	t_img	e_c;
 	t_img	e_o;
 	t_img	m;
 }	t_txts;
 
-typedef struct s_player
-{
-	int	x;
-	int	y;
-	int	c_col;
-}	t_player;
-
 typedef struct s_game
 {
 	void			*mlx;
 	void			*win;
 	int				mv;
-	int				timer;
+	int				timer1;
+	int				timer2;
 	unsigned int	seed;
+	int				m_num;
+	int				coin_index;
 	t_map			map;
 	t_player		p;
-	t_player		m;
+	t_player		**m;
 	t_txts			txt;
 }	t_game;
 
@@ -96,7 +100,7 @@ void	ft_putchar(int c);
 int		count_lines(int fd);
 char	*get_path(char *filename, int i);
 int		parsing_test(t_map *map);
-void	start_position(t_map *map, int i, int j);
+void	start_position(t_map *map, int i, int j, int k);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);
 void	main_game(t_map map);
 void	ft_putnbr(int n);
@@ -106,11 +110,13 @@ char	*n_moves(int n);
 char	*ft_itoa(int n);
 void	ft_settozero(int b[], int c, int len);
 void	put_moves(t_game g);
-void	m_enemy(t_game *g);
+void	m_enemy(t_game *g, int i);
 void	get_fds(char *path, int *c_fd, int *l_fd, int *count);
 int		draw_enemy(t_game *g);
 void	draw_map(t_game g, t_map map, int i, int j);
 void	print_moves(t_game *p);
 void	load_textures(t_txts *x, t_game g);
+void	output_enemy(t_game g);
+void	initiate_var(t_game *g, t_map map);
 
 #endif

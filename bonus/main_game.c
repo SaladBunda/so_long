@@ -13,8 +13,6 @@
 #include "so_long_bonus.h"
 #include "key_codes.h"
 
-// void load_coins(t_txts *x, t_game g);
-
 void	somethng(t_game *p, int par)
 {
 	if (par == 0)
@@ -56,7 +54,7 @@ void	draw_map(t_game g, t_map map, int i, int j)
 			else if (map.ln[i][j] == 'C')
 			{
 				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
-				MLX_PUT(g.mlx, g.win, g.txt.c[0].img, j * 64, i * 64);
+				MLX_PUT(g.mlx, g.win, g.txt.co.img, j * 64, i * 64);
 			}
 			else
 				MLX_PUT(g.mlx, g.win, g.txt.f.img, j * 64, i * 64);
@@ -67,8 +65,24 @@ void	draw_map(t_game g, t_map map, int i, int j)
 	else
 		MLX_PUT(g.mlx, g.win, g.txt.e_c.img, map.ex_x * 64, map.ex_y * 64);
 	MLX_PUT(g.mlx, g.win, g.txt.p.img, g.p.x, g.p.y);
-	MLX_PUT(g.mlx, g.win, g.txt.m.img, g.m.x, g.m.y);
+	output_enemy(g);
 	put_moves(g);
+}
+
+void	check_collision(t_game *p)
+{
+	int	i;
+
+	i = 0;
+	while (i < p->m_num)
+	{
+		if (p->p.x == (*p->m)[i].x && p->p.y == (*p->m)[i].y)
+		{
+			ft_putstr("You Lost!");
+			quit(p);
+		}
+		i++;
+	}
 }
 
 int	f(int key, t_game *p)
@@ -91,27 +105,23 @@ int	f(int key, t_game *p)
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
 		quit(p);
-	if (p->p.x == p->m.x && p->p.y == p->m.y)
-		quit(p);
+	check_collision(p);
 	return (0);
 }
 
 void	main_game(t_map map)
 {
-	t_game	game;
+	t_game		game;
+	t_player	*arr;
 
-	game.map = map;
-	game.p.x = map.pos_x * 64;
-	game.p.y = map.pos_y * 64;
-	game.m.x = map.m_x * 64;
-	game.m.y = map.m_y * 64;
-	game.p.c_col = 0;
-	game.mv = 0;
-	game.timer = 0;
-	game.seed = 12345;
+	arr = malloc(sizeof(t_player) * map.m_num);
+	if (!arr)
+		return ;
+	game.m = &arr;
+	initiate_var(&game, map);
 	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	load_textures(&game.txt, game);
+	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	mlx_key_hook(game.win, f, &game);
 	mlx_loop_hook(game.mlx, draw_enemy, &game);
 	mlx_hook(game.win, 17, 0, quit, &game);

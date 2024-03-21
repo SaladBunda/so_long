@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:06:44 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 21:00:10 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:55:26 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,44 +40,62 @@ int	get_direction(unsigned int *seed)
 	return (direction);
 }
 
-void	move_in_map(t_game *g, int par)
+void	move_in_map(t_game *g, int par, int i)
 {
 	if (par == 0)
-		g->m.y -= 64;
+		(*g->m)[i].y -= 64;
 	else if (par == 1)
-		g->m.y += 64;
+		(*g->m)[i].y += 64;
 	else if (par == 2)
-		g->m.x -= 64;
+		(*g->m)[i].x -= 64;
 	else if (par == 3)
-		g->m.x += 64;
+		(*g->m)[i].x += 64;
 }
 
-void	m_enemy(t_game *g)
+void	m_enemy(t_game *g, int i)
 {
-	int			dir;
+	int	dir;
 
 	dir = get_direction(&(g->seed));
-	if (g->timer > 35)
+	if (dir == 0 && g->map.ln[((*g->m)[i].y - 64) / 64][(*g->m)[i].x / 64]
+		!= '1')
+		move_in_map(g, 0, i);
+	else if (dir == 1 && g->map.ln[((*g->m)[i].y + 64) / 64][(*g->m)[i].x / 64] 
+	!= '1')
+		move_in_map(g, 1, i);
+	else if (dir == 2 && g->map.ln[(*g->m)[i].y / 64][((*g->m)[i].x - 64) / 64] 
+	!= '1')
+		move_in_map(g, 2, i);
+	else if (dir == 3 && g->map.ln[(*g->m)[i].y / 64][((*g->m)[i].x + 64) / 64] 
+	!= '1')
+		move_in_map(g, 3, i);
+	if ((*g->m)[i].x == g->p.x && (*g->m)[i].y == g->p.y)
 	{
-		if (dir == 0 && g->map.ln[(g->m.y - 64) / 64][g->m.x / 64] != '1')
-			move_in_map(g, 0);
-		else if (dir == 1 && g->map.ln[(g->m.y + 64) / 64][g->m.x / 64] != '1')
-			move_in_map(g, 1);
-		else if (dir == 2 && g->map.ln[g->m.y / 64][(g->m.x - 64) / 64] != '1')
-			move_in_map(g, 2);
-		else if (dir == 3 && g->map.ln[g->m.y / 64][(g->m.x + 64) / 64] != '1')
-			move_in_map(g, 3);
-		g->timer = 0;
-	}
-	else
-		g->timer++;
-	if (g->m.x == g->p.x && g->m.y == g->p.y)
+		ft_putstr("You Lost!");
 		quit(g);
+	}
 }
 
 int	draw_enemy(t_game *g)
 {
-	m_enemy(g);
+	int	i;
+
+	if (g->timer1 > 35)
+	{
+		i = 0;
+		while (i < g->m_num)
+			m_enemy(g, i++);
+		g->timer1 = 0;
+	}
+	else
+		g->timer1++;
+	if (g->timer2 > 5)
+	{
+		g->txt.co = g->txt.c[g->coin_index++ % 12];
+		g->timer2 = 0;
+	}
+	else
+		g->timer2++;
 	draw_map(*g, g->map, -1, -1);
 	return (0);
 }
