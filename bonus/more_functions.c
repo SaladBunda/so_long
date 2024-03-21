@@ -6,18 +6,19 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:27:32 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/20 22:35:37 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:28:33 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	get_fds(char *path, int *c_fd, int *l_fd, int *count)
+int	get_fds(char *path, int *c_fd, int *l_fd, int *count)
 {
 	*c_fd = open(path, O_RDONLY);
 	*count = count_lines(*c_fd);
 	*l_fd = open(path, O_RDONLY);
 	free(path);
+	return (0);
 }
 
 void	ft_settozero(int b[], int c, int len)

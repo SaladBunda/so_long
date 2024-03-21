@@ -6,13 +6,13 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/20 22:26:59 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:39:50 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	test_lines(char *lines[])
+int	test_lines(char *lines[], t_map *map, int count)
 {
 	int	i;
 	int	line_len;
@@ -26,6 +26,8 @@ int	test_lines(char *lines[])
 		else
 			i++;
 	}
+	map->y = count;
+	map->x = ft_strlen(map->ln[0]);
 	return (1);
 }
 
@@ -70,7 +72,6 @@ int	test_pxl(int array[], int width, int height)
 		return (0);
 	if (array[5] < 1)
 		return (0);
-	
 	return (1);
 }
 
@@ -111,20 +112,19 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	t_player	*enemy;
 
 	path = get_path(filename, 0);
-	i = 0;
-	get_fds(path, &count_fd, &lines_fd, &count);
+	i = get_fds(path, &count_fd, &lines_fd, &count);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
 	while (i <= count)
 		map->ln[i++] = get_next_line(lines_fd);
-	if (test_lines(map->ln) != 1)
+	if (test_lines(map->ln, map, count) != 1)
 		return (0);
-	map->y = count;
-	map->x = ft_strlen(map->ln[0]);
 	if (fill_pixels(map, -1, -1) != 1)
 		return (0);
 	enemy = malloc(sizeof(t_player) * map->m_num);
+	if (!enemy)
+		return (0);
 	map->m = &enemy;
 	if (test_borders(map->ln, map->x, map->y) != 1)
 		return (0);
