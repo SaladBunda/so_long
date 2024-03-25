@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/22 21:07:53 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:50:24 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ void	ft_putstr(char *str)
 		write(1, &str[i++], 1);
 }
 
-void	get_fds(char *path, int *c_fd, int *l_fd, int *count)
+int	get_fds(char *path, int *c_fd, int *l_fd, int *count)
 {
 	*c_fd = open(path, O_RDONLY);
 	*count = count_lines(*c_fd);
 	*l_fd = open(path, O_RDONLY);
+	if((*c_fd) == -1 || (*l_fd) == -1)
+		return (0);
+	else
+		return (1);
+	free(path);
 }
 
 int	draw_enemy(t_game *g)

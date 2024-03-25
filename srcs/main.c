@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 23:05:12 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:52:06 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void freeing_map(t_map *map)
 
 void	print_errors(int param, t_map *map)
 {
+	
 	if(param == 2)
 		write(2,"Invalid lines length\n",21);
 	else if(param == 3)
@@ -61,7 +62,7 @@ void	print_errors(int param, t_map *map)
 		if(fill_pixels(map,-1, -1) == 0)
 			write(2, "Invalid characters in map\n",26);
 		else if(fill_pixels(map,-1, -1) == 10)
-			write(2, "Duplicate of Player/Exit\n",25);
+			write(2, "Invalid number of Player/Exit positions\n",25);
 		else if(fill_pixels(map,-1, -1) == 11)
 			write(2, "The map must contain at least 1 coin\n",37);
 			
