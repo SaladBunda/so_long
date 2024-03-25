@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 19:29:44 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/22 21:08:08 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 # define MLX_PUT mlx_put_image_to_window
 # define MLX_S mlx_string_put
-# define MLX_XPM mlx_xpm_file_to_image
-# define MLX_DATA mlx_get_data_addr
+# define MLX_X mlx_xpm_file_to_image
+# define MLX_D mlx_get_data_addr
 
 typedef struct s_map
 {
@@ -40,7 +40,7 @@ typedef struct s_map
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
+	char	*a;
 	int		bpp;
 	int		ll;
 	int		en;
@@ -94,7 +94,7 @@ void	start_position(t_map *map);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);
 void	main_game(t_map map);
 void	ft_putnbr(int n);
-int		quit(t_game *param);
+int		quit(t_game *param, int option);
 void	ft_putstr(char *str);
 void	get_fds(char *path, int *c_fd, int *l_fd, int *count);
 int		draw_enemy(t_game *g);

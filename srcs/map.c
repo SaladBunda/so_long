@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 02:40:27 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:10:24 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,20 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	if (!map->ln)
 		return (0);
 	while (i < count)
-		map->ln[i++] = get_next_line(lines_fd);
+	{
+		map->ln[i] = get_next_line(lines_fd);
+		dprintf(1,"%p\n",map->ln[i++]);
+	}
 	map->ln[i] = NULL;
 	if (test_lines(map->ln) != 1)
-		return (0);
+		return (2);
 	map->y = count;
 	map->x = ft_strlen(map->ln[0]);
 	if (fill_pixels(map, -1, -1) != 1)
-		return (0);
+		return (3);
 	if (test_borders(map->ln, map->x, map->y) != 1)
-		return (0);
+		return (4);
 	if (parsing_test(map))
 		return (1);
-	return (0);
+	return (5);
 }

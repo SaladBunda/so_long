@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:06:44 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/20 22:55:26 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/22 21:01:17 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	m_enemy(t_game *g, int i)
 	if ((*g->m)[i].x == g->p.x && (*g->m)[i].y == g->p.y)
 	{
 		ft_putstr("You Lost!");
-		quit(g);
+		quit(g, 0);
 	}
 }
 

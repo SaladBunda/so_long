@@ -78,7 +78,7 @@ int	f(int key, t_game *p)
 	else if (key == RK && p->map.ln[p->p.y / 64][(p->p.x + 64) / 64] != '1')
 		somethng(p, 3);
 	else if (key == ESC_KEY)
-		quit(p);
+		quit(p, 0);
 	if (p->map.ln[p->p.y / 64][p->p.x / 64] == 'C')
 	{
 		p->p.c_col++;
@@ -86,7 +86,7 @@ int	f(int key, t_game *p)
 	}
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
-		quit(p);
+		quit(p, 0);
 	return (0);
 }
 

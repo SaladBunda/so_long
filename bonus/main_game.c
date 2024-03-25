@@ -39,7 +39,6 @@ void	somethng(t_game *p, int par)
 		p->p.x += 64;
 		p->mv++;
 	}
-	print_moves(p);
 }
 
 void	draw_map(t_game g, t_map map, int i, int j)
@@ -79,7 +78,7 @@ void	check_collision(t_game *p)
 		if (p->p.x == (*p->m)[i].x && p->p.y == (*p->m)[i].y)
 		{
 			ft_putstr("You Lost!");
-			quit(p);
+			quit(p, 0);
 		}
 		i++;
 	}
@@ -96,7 +95,7 @@ int	f(int key, t_game *p)
 	else if (key == RK && p->map.ln[p->p.y / 64][(p->p.x + 64) / 64] != '1')
 		somethng(p, 3);
 	else if (key == ESC_KEY)
-		quit(p);
+		quit(p, 0);
 	if (p->map.ln[p->p.y / 64][p->p.x / 64] == 'C')
 	{
 		p->p.c_col++;
@@ -104,7 +103,7 @@ int	f(int key, t_game *p)
 	}
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
-		quit(p);
+		quit(p, 0);
 	check_collision(p);
 	return (0);
 }
@@ -120,8 +119,8 @@ void	main_game(t_map map)
 	game.m = &arr;
 	initiate_var(&game, map);
 	game.mlx = mlx_init();
-	load_textures(&game.txt, game);
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
+	load_textures(&game.txt, game);
 	mlx_key_hook(game.win, f, &game);
 	mlx_loop_hook(game.mlx, draw_enemy, &game);
 	mlx_hook(game.win, 17, 0, quit, &game);

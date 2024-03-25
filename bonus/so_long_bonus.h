@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/21 16:35:55 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/22 21:00:09 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	start_position(t_map *map, int i, int j, int k);
 int		map_tests(char *filename, t_map *map, int count_fd, int lines_fd);
 void	main_game(t_map map);
 void	ft_putnbr(int n);
-int		quit(t_game *param);
+int		quit(t_game *param, int option);
 void	ft_putstr(char *str);
 char	*n_moves(int n);
 char	*ft_itoa(int n);
@@ -114,7 +114,6 @@ void	m_enemy(t_game *g, int i);
 int		get_fds(char *path, int *c_fd, int *l_fd, int *count);
 int		draw_enemy(t_game *g);
 void	draw_map(t_game g, t_map map, int i, int j);
-void	print_moves(t_game *p);
 void	load_textures(t_txts *x, t_game g);
 void	output_enemy(t_game g);
 void	initiate_var(t_game *g, t_map map);
