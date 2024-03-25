@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 21:10:24 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:33:33 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	i = 0;
 	get_fds(path, &count_fd, &lines_fd, &count);
 	free(path);
+	map->y = count;
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
@@ -120,7 +121,6 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	map->ln[i] = NULL;
 	if (test_lines(map->ln) != 1)
 		return (2);
-	map->y = count;
 	map->x = ft_strlen(map->ln[0]);
 	if (fill_pixels(map, -1, -1) != 1)
 		return (3);

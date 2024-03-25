@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 21:07:38 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:34:20 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ void freeing_map(t_map *map)
 
 	i = 0;
 	while(i < map->y)
-		free(map->ln[i++]);
+	{
+		free(map->ln[i]);
+		map->ln[i] = NULL;
+	}
 	free(map->ln);
+	map->ln = NULL;
 }
 
 void	print_errors(int param, t_map *map)
