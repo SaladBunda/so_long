@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 21:33:33 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:05:53 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	test_borders(char *map[], int width, int height)
 		j = 0;
 		while (j < width)
 		{
-			if (j > 0 && j < width - 1 && i > 0 && i < height - 1)
+			if (j > 0 && j < (width - 1) && i > 0 && i < (height - 1))
 				j++;
 			else
 			{
@@ -50,24 +50,18 @@ int	test_borders(char *map[], int width, int height)
 					return (0);
 			}
 		}
-		i++;
 	}
 	return (1);
 }
 
 int	test_pixels(int array[], int width, int height)
 {
-	int	contour;
-
-	contour = 4 + (width - 2) * 2 + (height - 2) * 2;
-	if (array[3] != 1)
-		return (0);
-	if (array[4] != 1)
-		return (0);
-	if (array[1] < contour)
-		return (0);
+	(void) width;
+	(void) height;
+	if (array[3] != 1 || array[4] != 1)
+		return (10);
 	if (array[2] < 1)
-		return (0);
+		return (11);
 	return (1);
 }
 
@@ -109,16 +103,13 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	i = 0;
 	get_fds(path, &count_fd, &lines_fd, &count);
 	free(path);
-	map->y = count;
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
 	while (i < count)
-	{
-		map->ln[i] = get_next_line(lines_fd);
-		dprintf(1,"%p\n",map->ln[i++]);
-	}
+		map->ln[i++] = get_next_line(lines_fd);
 	map->ln[i] = NULL;
+	map->y = count;
 	if (test_lines(map->ln) != 1)
 		return (2);
 	map->x = ft_strlen(map->ln[0]);

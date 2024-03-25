@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 21:34:20 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:05:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void freeing_map(t_map *map)
 	while(i < map->y)
 	{
 		free(map->ln[i]);
-		map->ln[i] = NULL;
+		map->ln[i++] = NULL;
 	}
 	free(map->ln);
 	map->ln = NULL;
@@ -57,7 +57,15 @@ void	print_errors(int param, t_map *map)
 	if(param == 2)
 		write(2,"Invalid lines length\n",21);
 	else if(param == 3)
-		write(2,"Invalid characters in map\n",26);
+	{
+		if(fill_pixels(map,-1, -1) == 0)
+			write(2, "Invalid characters in map\n",26);
+		else if(fill_pixels(map,-1, -1) == 10)
+			write(2, "Duplicate of Player/Exit\n",25);
+		else if(fill_pixels(map,-1, -1) == 11)
+			write(2, "The map must contain at least 1 coin\n",37);
+			
+	}
 	else if(param == 4)
 		write(2,"Invalid borders\n",16);
 	else if(param == 5)
@@ -72,13 +80,9 @@ int	main(int ac, char **av)
 	t_map	map;
 	int		result;
 
-	if (ac > 2 || ac == 1)
+	if (ac == 2)
 	{
-		write(2, "Usage: ./so_long (map name).ber\n", 32);
-		return (0);
-	}
-	else
-	{
+		ft_putstr("testing map\n");
 		if (ext_test(av[1]) == 1)
 		{
 			result = map_tests(av[1], &map, 0, 0);
@@ -87,11 +91,12 @@ int	main(int ac, char **av)
 			else
 			{
 				print_errors(result, &map);
-				usleep(100000000);
 				return (-1);
 			}
 		}
 		else
 			write(2,"not a .ber file\n",16);
 	}
+	else
+		write(2, "Usage: ./so_long (map name).ber\n", 32);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/21 16:39:50 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:00:07 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	test_borders(char *map[], int width, int height)
 					return (0);
 			}
 		}
-		i++;
 	}
 	return (1);
 }
