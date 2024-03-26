@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 23:54:14 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:37:17 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void freeing_map(t_map *map)
 
 void	print_errors(int param, t_map *map)
 {
-	if(param == 6)
+	if(param != 6)
 	{
 		if(param == 2)
-			write(2,"Invalid lines length\n",21);
+			write(2,"Map must be a rectangle\n",21);
 		else if(param == 3)
 		{
 			if(fill_pixels(map,-1, -1) == 0)
@@ -66,7 +66,6 @@ void	print_errors(int param, t_map *map)
 				write(2, "Invalid number of Player/Exit positions\n",25);
 			else if(fill_pixels(map,-1, -1) == 11)
 				write(2, "The map must contain at least 1 coin\n",37);
-				
 		}
 		else if(param == 4)
 			write(2,"Invalid borders\n",16);
@@ -95,6 +94,7 @@ int	main(int ac, char **av)
 			else
 			{
 				print_errors(result, &map);
+				usleep(100000000);
 				return (-1);
 			}
 		}
