@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/26 19:44:23 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:30:31 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 
 	path = get_path(filename, 0);
 	i = 0;
-	if(get_fds(path, &count_fd, &lines_fd, &count) == 0)
-		return(6);
+	if (get_fds(path, &count_fd, &lines_fd, &count) == 0)
+		return (6);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);

@@ -78,7 +78,10 @@ int	f(int key, t_game *p)
 	else if (key == RK && p->map.ln[p->p.y / 64][(p->p.x + 64) / 64] != '1')
 		somethng(p, 3);
 	else if (key == ESC_KEY)
+	{
+		ft_putstr("Thank you for your time.\n");
 		quit(p, 0);
+	}
 	if (p->map.ln[p->p.y / 64][p->p.x / 64] == 'C')
 	{
 		p->p.c_col++;

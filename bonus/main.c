@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/17 15:50:44 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:53:52 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,74 @@ int	ext_test(char *filename)
 	return (0);
 }
 
+void	freeing_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->y)
+	{
+		free(map->ln[i]);
+		map->ln[i++] = NULL;
+	}
+	free(map->ln);
+	map->ln = NULL;
+}
+
+void	print_errors(int param, t_map *map)
+{
+	if (param != 6)
+	{
+		if (param == 2)
+			write(2, "Map must be a rectangle\n", 24);
+		else if (param == 3)
+		{
+			if (fill_pixels(map, -1, -1) == 0)
+				write(2, "Invalid characters in map\n", 26);
+			else if (fill_pixels(map, -1, -1) == 10)
+				write(2, "Invalid number of Player/Exit positions\n", 39);
+			else if (fill_pixels(map, -1, -1) == 11)
+				write(2, "The map must contain at least 1 coin\n", 37);
+			else if (fill_pixels(map, -1, -1) == 12)
+				write(2, "The map must contain at least 1 monster\n", 40);
+		}
+		else if (param == 4)
+			write(2, "Invalid borders\n", 16);
+		else if (param == 5)
+			write(2, "Invalid path\n", 13);
+		else if (param == 0)
+			write(2, "Error while creating game\n", 26);
+		freeing_map(map);
+		return ;
+	}
+	write(2, "Failed to open map file\n", 24);
+}
+
 int	main(int ac, char **av)
 {
 	t_map	map;
+	int		result;
 
-	if (ac > 2 || ac == 1)
+	if (ac == 2)
 	{
-		write(2, "incorrect arg", 14);
-		return (0);
-	}
-	else
-	{
+		ft_putstr("Testing map...\n");
 		if (ext_test(av[1]) == 1)
 		{
-			ft_putstr("its a map\n");
-			if (map_tests(av[1], &map, 0, 0) == 1)
+			result = map_tests(av[1], &map, 0, 0);
+			if (result == 1)
 			{
+				ft_putstr("Valid map, starting game now...\nHAVE FUN!!\n");
 				main_game(map);
 			}
 			else
-				ft_putstr("bad map");
+			{
+				print_errors(result, &map);
+				return (-1);
+			}
 		}
 		else
-			ft_putstr("not a .ber file");
+			write(2, "not a .ber file\n", 16);
 	}
+	else
+		write(2, "Usage: ./so_long (map name).ber\n", 32);
 }

@@ -6,13 +6,13 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/25 23:00:07 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/27 22:57:38 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	test_lines(char *lines[], t_map *map, int count)
+int	test_lines(char *lines[], t_map *map)
 {
 	int	i;
 	int	line_len;
@@ -26,7 +26,6 @@ int	test_lines(char *lines[], t_map *map, int count)
 		else
 			i++;
 	}
-	map->y = count;
 	map->x = ft_strlen(map->ln[0]);
 	return (1);
 }
@@ -58,19 +57,14 @@ int	test_borders(char *map[], int width, int height)
 
 int	test_pxl(int array[], int width, int height)
 {
-	int	contour;
-
-	contour = 4 + (width - 2) * 2 + (height - 2) * 2;
-	if (array[3] != 1)
-		return (0);
-	if (array[4] != 1)
-		return (0);
-	if (array[1] < contour)
-		return (0);
+	(void) width;
+	(void) height;
+	if (array[3] != 1 || array[4] != 1)
+		return (10);
 	if (array[2] < 1)
-		return (0);
+		return (11);
 	if (array[5] < 1)
-		return (0);
+		return (12);
 	return (1);
 }
 
@@ -105,29 +99,29 @@ int	fill_pixels(t_map *map, int i, int j)
 
 int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 {
-	int			count;
 	int			i;
-	char		*path;
 	t_player	*enemy;
 
-	path = get_path(filename, 0);
-	i = get_fds(path, &count_fd, &lines_fd, &count);
-	map->ln = malloc((count + 1) * sizeof(char *));
+	map->fullpath = get_path(filename, 0);
+	i = get_fds(map->fullpath, &count_fd, &lines_fd, &map->y);
+	if (i == 1)
+		return (6);
+	map->ln = malloc((map->y + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
-	while (i <= count)
+	while (i <= map->y)
 		map->ln[i++] = get_next_line(lines_fd);
-	if (test_lines(map->ln, map, count) != 1)
-		return (0);
+	if (test_lines(map->ln, map) != 1)
+		return (2);
 	if (fill_pixels(map, -1, -1) != 1)
-		return (0);
+		return (3);
 	enemy = malloc(sizeof(t_player) * map->m_num);
 	if (!enemy)
 		return (0);
 	map->m = &enemy;
 	if (test_borders(map->ln, map->x, map->y) != 1)
-		return (0);
+		return (4);
 	if (parsing_test(map))
 		return (1);
-	return (0);
+	return (5);
 }

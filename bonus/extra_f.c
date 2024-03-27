@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/22 21:01:05 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/27 22:57:49 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	quit(t_game *p, int option)
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
 		ft_putstr("You Won!!!!");
-	if(option == 1)
+	if (option == 1)
 		ft_putstr("Invalid textures!!!\n");
 	mlx_destroy_window(p->mlx, p->win);
 	free_map(*p);

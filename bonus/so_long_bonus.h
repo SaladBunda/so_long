@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/22 21:00:09 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/27 23:01:28 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include <fcntl.h>
+# include <fcntl.h>      
 # include <mlx.h>
 
-# define MLX_PUT mlx_put_image_to_window
+# define MLX_PUT mlx_put_image_to_window 
 # define MLX_S mlx_string_put
 # define MLX_X mlx_xpm_file_to_image
 # define MLX_D mlx_get_data_addr
@@ -117,5 +117,6 @@ void	draw_map(t_game g, t_map map, int i, int j);
 void	load_textures(t_txts *x, t_game g);
 void	output_enemy(t_game g);
 void	initiate_var(t_game *g, t_map map);
+int		fill_pixels(t_map *map, int i, int j);
 
 #endif

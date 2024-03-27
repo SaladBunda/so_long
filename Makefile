@@ -24,7 +24,7 @@ $(NAME): $(OBJS)
 	$(CC)  $^ $(IFLAGS) -o $(NAME) 
 
 %.o: %.c so_long.h
-	$(CC) $^ -c $(CFLAGS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS) $(OBJB)

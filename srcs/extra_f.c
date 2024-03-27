@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/26 19:50:09 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:11:57 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	quit(t_game *p, int option)
 	if (p->p.c_col == p->map.coins 
 		&& p->p.x == p->map.ex_x * 64 && p->p.y == p->map.ex_y * 64)
 		ft_putstr("You Won!!!!");
-	if(option == 1)
+	if (option == 1)
 		ft_putstr("Invalid Textures??\n");
 	mlx_destroy_window(p->mlx, p->win);
 	free_map(*p);
@@ -46,9 +46,9 @@ void	ft_putstr(char *str)
 int	get_fds(char *path, int *c_fd, int *l_fd, int *count)
 {
 	*c_fd = open(path, O_RDONLY);
-	*count = count_lines(*c_fd);
 	*l_fd = open(path, O_RDONLY);
-	if((*c_fd) == -1 || (*l_fd) == -1)
+	*count = count_lines(*c_fd);
+	if ((*c_fd) == -1 && (*l_fd) == -1)
 		return (0);
 	else
 		return (1);
