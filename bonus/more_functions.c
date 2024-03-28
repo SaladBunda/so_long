@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:27:32 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/27 22:31:46 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:24:58 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_fds(char *path, int *c_fd, int *l_fd, int *count)
 	*l_fd = open(path, O_RDWR);
 	*count = count_lines(*c_fd);
 	close(*c_fd);
-	if ((*c_fd) == -1 || (*l_fd) == -1)
+	if ((*c_fd) == -1 && (*l_fd) == -1)
 		return (1);
 	else
 		return (0);

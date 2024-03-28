@@ -95,7 +95,7 @@ int	f(int key, t_game *p)
 	else if (key == RK && p->map.ln[p->p.y / 64][(p->p.x + 64) / 64] != '1')
 		somethng(p, 3);
 	else if (key == ESC_KEY)
-		quit(p, 0);
+		quit(p, 2);
 	if (p->map.ln[p->p.y / 64][p->p.x / 64] == 'C')
 	{
 		p->p.c_col++;
@@ -121,6 +121,7 @@ void	main_game(t_map map)
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	load_textures(&game.txt, game);
+	game.txt.co.img = game.txt.c[0].img;
 	mlx_key_hook(game.win, f, &game);
 	mlx_loop_hook(game.mlx, draw_enemy, &game);
 	mlx_hook(game.win, 17, 0, quit, &game);

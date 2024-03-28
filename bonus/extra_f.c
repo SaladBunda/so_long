@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/27 22:57:49 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:19:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,12 @@ int	quit(t_game *p, int option)
 		ft_putstr("You Won!!!!");
 	if (option == 1)
 		ft_putstr("Invalid textures!!!\n");
+	if (option == 2)
+		ft_putstr("You exited the game!!!\n");
 	mlx_destroy_window(p->mlx, p->win);
 	free_map(*p);
 	free((*p->m));
+	usleep(700000000);
 	exit(1);
 }
 
