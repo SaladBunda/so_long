@@ -1,5 +1,5 @@
 SRCS = map.c util_fs.c util_functions.c get_next_line.c map_parsing.c main.c main_game.c extra_f.c load_textures.c
-SRCB = map.c util_fs.c util_functions.c get_next_line.c map_parsing.c main.c main_game.c extra_f.c load_textures.c more_functions.c move_enemy.c
+SRCB = map_bonus.c util_fs_bonus.c util_functions_bonus.c get_next_line_bonus.c map_parsing_bonus.c main_bonus.c main_game_bonus.c extra_f_bonus.c load_textures_bonus.c more_functions_bonus.c move_enemy_bonus.c
 DIR = ./srcs/
 BONUS_DIR = ./bonus/
 OBJS = $(SRCS:%.c=$(DIR)%.o)

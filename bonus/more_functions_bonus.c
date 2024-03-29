@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   more_functions.c                                   :+:      :+:    :+:   */
+/*   more_functions_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:27:32 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/28 20:24:58 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:17:56 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	get_fds(char *path, int *c_fd, int *l_fd, int *count)
+int	get_fds(t_map *map, int *c_fd, int *l_fd, int *count)
 {
-	*c_fd = open(path, O_RDWR);
-	*l_fd = open(path, O_RDWR);
+	*c_fd = open(map->fullpath, O_RDWR);
+	*l_fd = open(map->fullpath, O_RDWR);
 	*count = count_lines(*c_fd);
 	close(*c_fd);
+	free(map->fullpath);
 	if ((*c_fd) == -1 && (*l_fd) == -1)
 		return (1);
 	else

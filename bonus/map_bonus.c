@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/27 22:57:38 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:05:19 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 	t_player	*enemy;
 
 	map->fullpath = get_path(filename, 0);
-	i = get_fds(map->fullpath, &count_fd, &lines_fd, &map->y);
+	i = get_fds(map, &count_fd, &lines_fd, &map->y);
 	if (i == 1)
 		return (6);
 	map->ln = malloc((map->y + 1) * sizeof(char *));

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:08:58 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/19 19:39:07 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:18:39 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ char	*ft_read(int fd, char *buffer, int index)
 	char	*tmp;
 	char	*frees;
 
-	tmp = malloc(sizeof(char) * 300 + 1);
+	tmp = malloc(sizeof(char) * 30000 + 1);
 	if (!tmp)
 		return (free(buffer), buffer = NULL, NULL);
 	while (index > 0)
 	{
-		index = read(fd, tmp, 300);
+		index = read(fd, tmp, 30000);
 		if (index == -1)
 			return (free(buffer), free(tmp), NULL);
 		if (index != 0)

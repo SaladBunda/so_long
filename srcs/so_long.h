@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:16:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/28 20:20:49 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:34:56 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define MLX_S mlx_string_put
 # define MLX_X mlx_xpm_file_to_image
 # define MLX_D mlx_get_data_addr
+
+# define UK 13
+# define LK 0
+# define RK 2
+# define DK 1
+# define ESC_KEY 53
 
 typedef struct s_map
 {
@@ -96,7 +102,7 @@ void	main_game(t_map map);
 void	ft_putnbr(int n);
 int		quit(t_game *param, int option);
 void	ft_putstr(char *str);
-int		get_fds(char *path, int *c_fd, int *l_fd, int *count);
+int		get_fds(t_map *map, int *c_fd, int *l_fd, int *count);
 int		draw_enemy(t_game *g);
 void	draw_map(t_game g, t_map map, int i, int j);
 void	print_moves(t_game *p);

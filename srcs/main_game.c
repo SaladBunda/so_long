@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "key_codes.h"
 
 void	somethng(t_game *p, int par)
 {
@@ -103,7 +102,17 @@ void	main_game(t_map map)
 	game.p.c_col = 0;
 	game.mv = 0;
 	game.mlx = mlx_init();
+	if (!game.mlx)
+	{
+		write(2, "Error while starting game\n", 26);
+		quit(&game, 2);
+	}
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
+	if (!game.win)
+	{
+		// write(2, "Error while starting game\n", 26);
+		quit(&game, 2);
+	}
 	load_textures(&game.txt, game);
 	mlx_key_hook(game.win, f, &game);
 	mlx_loop_hook(game.mlx, draw_enemy, &game);

@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/28 20:21:03 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:22:03 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int	quit(t_game *p, int option)
 		ft_putstr("You Won!!!!");
 	if (option == 1)
 		ft_putstr("Invalid Textures??\n");
+	if (option == 2)
+	{
+		free_map(*p);
+		exit (1);
+	}
 	mlx_destroy_window(p->mlx, p->win);
 	free_map(*p);
 	exit(1);
@@ -43,15 +48,18 @@ void	ft_putstr(char *str)
 		write(1, &str[i++], 1);
 }
 
-int	get_fds(char *path, int *c_fd, int *l_fd, int *count)
+int	get_fds(t_map *map, int *c_fd, int *l_fd, int *count)
 {
-	*c_fd = open(path, O_RDONLY);
-	*l_fd = open(path, O_RDONLY);
+	*c_fd = open(map->fullpath, O_RDONLY);
+	*l_fd = open(map->fullpath, O_RDONLY);
 	*count = count_lines(*c_fd);
+	close(*c_fd);
+	if (*count >= 129)
+		return (13);
 	if ((*c_fd) == -1 && (*l_fd) == -1)
-		return (0);
-	else
 		return (1);
+	else
+		return (0);
 }
 
 int	draw_enemy(t_game *g)

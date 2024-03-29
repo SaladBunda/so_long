@@ -6,12 +6,11 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/26 21:10:54 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:32:12 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <time.h>
 
 int	ext_test(char *filename)
 {
@@ -73,6 +72,8 @@ void	print_errors(int param, t_map *map)
 			write(2, "Invalid path\n", 13);
 		else if (param == 0)
 			write(2, "Error while creating game\n", 26);
+		else if (param == 13)
+			write(2, "Map height and width shouldnt surpass 128 blocks\n", 49);
 		freeing_map(map);
 		return ;
 	}

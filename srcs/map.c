@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/26 21:30:31 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:32:34 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	test_pixels(int array[], int width, int height)
 int	fill_pixels(t_map *map, int i, int j)
 {
 	int	arr[5];
-
 	while (++j < 5)
 		arr[j] = 0;
 	while (map->ln[++i])
@@ -97,22 +96,22 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 {
 	int		count;
 	int		i;
-	char	*path;
 
-	path = get_path(filename, 0);
-	i = 0;
-	if (get_fds(path, &count_fd, &lines_fd, &count) == 0)
-		return (6);
+	map->fullpath = get_path(filename, 0);
+	i = get_fds(map, &count_fd, &lines_fd, &count);
+	if (i != 0)
+		return (i);
 	map->ln = malloc((count + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
-	while (i < count)
+	while (i <= count)
 		map->ln[i++] = get_next_line(lines_fd);
-	map->ln[i] = NULL;
 	map->y = count;
+	map->x = ft_strlen(map->ln[0]);
 	if (test_lines(map->ln) != 1)
 		return (2);
-	map->x = ft_strlen(map->ln[0]);
+	if (map->x >= 129)
+		return (13);
 	if (fill_pixels(map, -1, -1) != 1)
 		return (3);
 	if (test_borders(map->ln, map->x, map->y) != 1)
