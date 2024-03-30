@@ -118,7 +118,17 @@ void	main_game(t_map map)
 	game.m = &arr;
 	initiate_var(&game, map);
 	game.mlx = mlx_init();
+	if (!game.mlx)
+	{
+		write(2, "Error while starting game\n", 26);
+		quit(&game, 3);
+	}
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
+	if (!game.win)
+	{
+		write(2, "Error while starting game\n", 26);
+		quit(&game, 3);
+	}
 	load_textures(&game.txt, game);
 	game.txt.co.img = game.txt.c[0].img;
 	mlx_key_hook(game.win, f, &game);

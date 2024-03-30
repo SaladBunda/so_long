@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/27 16:53:52 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:37:51 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ int	main(int ac, char **av)
 				ft_putstr("Valid map, starting game now...\nHAVE FUN!!\n");
 				main_game(map);
 			}
+			else if (result == 13)
+				write(2, "Map height and width shouldnt surpass 128 blocks\n", 49);
 			else
-			{
 				print_errors(result, &map);
-				return (-1);
-			}
+
 		}
 		else
 			write(2, "not a .ber file\n", 16);

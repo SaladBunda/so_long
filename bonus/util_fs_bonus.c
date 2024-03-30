@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util_fs.c                                          :+:      :+:    :+:   */
+/*   util_fs_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:57:03 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/26 22:50:53 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:03:04 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	count_lines(int fd)
 	char	*str;
 
 	str = get_next_line(fd);
+	if (ft_strlen(str) > 128)
+		return (-1);
 	count = 0;
 	while (str)
 	{
@@ -36,7 +38,6 @@ char	*get_path(char *filename, int i)
 	int		length;
 	char	*path;
 	char	*fullpath;
-	char	*tmp;
 
 	length = ft_strlen(filename);
 	path = "./maps/";
@@ -47,9 +48,7 @@ char	*get_path(char *filename, int i)
 		fullpath[i++] = 0;
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, filename, length);
-	tmp = fullpath;
-	free(fullpath);
-	return (tmp);
+	return (fullpath);
 }
 
 int	ft_strchr(const char *s, int c)

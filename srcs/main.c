@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 22:47:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/29 22:32:12 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:39:15 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void	print_errors(int param, t_map *map)
 			write(2, "Invalid path\n", 13);
 		else if (param == 0)
 			write(2, "Error while creating game\n", 26);
-		else if (param == 13)
-			write(2, "Map height and width shouldnt surpass 128 blocks\n", 49);
 		freeing_map(map);
 		return ;
 	}
@@ -96,11 +94,11 @@ int	main(int ac, char **av)
 				ft_putstr("Valid map, starting game now...\nHAVE FUN!!\n");
 				main_game(map);
 			}
+			else if (result == 13)
+				write(2, "Map height and width shouldnt surpass 128 blocks\n", 49);
 			else
-			{
 				print_errors(result, &map);
-				return (-1);
-			}
+	
 		}
 		else
 			write(2, "not a .ber file\n", 16);

@@ -6,17 +6,18 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:50:28 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/29 22:05:19 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:02:49 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	test_lines(char *lines[], t_map *map)
+int	test_lines(char *lines[], t_map *map, int *l_fd)
 {
 	int	i;
 	int	line_len;
 
+	close(*l_fd);
 	i = 0;
 	line_len = ft_strlen(lines[i]);
 	while (lines[i])
@@ -104,14 +105,14 @@ int	map_tests(char *filename, t_map *map, int count_fd, int lines_fd)
 
 	map->fullpath = get_path(filename, 0);
 	i = get_fds(map, &count_fd, &lines_fd, &map->y);
-	if (i == 1)
-		return (6);
+	if (i != 0)
+		return (i);
 	map->ln = malloc((map->y + 1) * sizeof(char *));
 	if (!map->ln)
 		return (0);
 	while (i <= map->y)
 		map->ln[i++] = get_next_line(lines_fd);
-	if (test_lines(map->ln, map) != 1)
+	if (test_lines(map->ln, map, &lines_fd) != 1)
 		return (2);
 	if (fill_pixels(map, -1, -1) != 1)
 		return (3);

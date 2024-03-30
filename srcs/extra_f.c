@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 21:25:02 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/29 22:22:03 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:21:55 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	quit(t_game *p, int option)
 	if (option == 1)
 		ft_putstr("Invalid Textures??\n");
 	if (option == 2)
+		ft_putstr("You exited the game\n");
+	if (option == 3)
 	{
 		free_map(*p);
 		exit (1);
@@ -54,10 +56,11 @@ int	get_fds(t_map *map, int *c_fd, int *l_fd, int *count)
 	*l_fd = open(map->fullpath, O_RDONLY);
 	*count = count_lines(*c_fd);
 	close(*c_fd);
+	free(map->fullpath);
 	if (*count >= 129)
 		return (13);
 	if ((*c_fd) == -1 && (*l_fd) == -1)
-		return (1);
+		return (6);
 	else
 		return (0);
 }

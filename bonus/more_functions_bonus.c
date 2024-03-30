@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:27:32 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/29 21:17:56 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:59:44 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ int	get_fds(t_map *map, int *c_fd, int *l_fd, int *count)
 {
 	*c_fd = open(map->fullpath, O_RDWR);
 	*l_fd = open(map->fullpath, O_RDWR);
-	*count = count_lines(*c_fd);
-	close(*c_fd);
 	free(map->fullpath);
 	if ((*c_fd) == -1 && (*l_fd) == -1)
-		return (1);
-	else
-		return (0);
+		return (6);
+	*count = count_lines(*c_fd);
+	if(count_lines(*c_fd) == -1 || *count >= 129)
+	{
+		close(*c_fd);
+		return (13);
+	}
+	return (0);
 }
 
 void	ft_settozero(int b[], int c, int len)

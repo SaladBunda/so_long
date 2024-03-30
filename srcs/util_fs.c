@@ -6,7 +6,7 @@
 /*   By: ael-maaz <ael-maaz@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:57:03 by ael-maaz          #+#    #+#             */
-/*   Updated: 2024/03/29 22:30:06 by ael-maaz         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:36:23 by ael-maaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*get_path(char *filename, int i)
 	int		length;
 	char	*path;
 	char	*fullpath;
-	char	*tmp;
 
 	length = ft_strlen(filename);
 	path = "./maps/";
@@ -47,8 +46,6 @@ char	*get_path(char *filename, int i)
 		fullpath[i++] = 0;
 	ft_strncat(fullpath, path, ft_strlen(path));
 	ft_strncat(fullpath, filename, length);
-	tmp = fullpath;
-	free(fullpath);
 	return (fullpath);
 }
 

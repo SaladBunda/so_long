@@ -79,7 +79,7 @@ int	f(int key, t_game *p)
 	else if (key == ESC_KEY)
 	{
 		ft_putstr("Thank you for your time.\n");
-		quit(p, 0);
+		quit(p, 2);
 	}
 	if (p->map.ln[p->p.y / 64][p->p.x / 64] == 'C')
 	{
@@ -105,13 +105,13 @@ void	main_game(t_map map)
 	if (!game.mlx)
 	{
 		write(2, "Error while starting game\n", 26);
-		quit(&game, 2);
+		quit(&game, 3);
 	}
 	game.win = mlx_new_window(game.mlx, map.x * 64, map.y * 64, "bunda");
 	if (!game.win)
 	{
-		// write(2, "Error while starting game\n", 26);
-		quit(&game, 2);
+		write(2, "Error while starting game\n", 26);
+		quit(&game, 3);
 	}
 	load_textures(&game.txt, game);
 	mlx_key_hook(game.win, f, &game);
